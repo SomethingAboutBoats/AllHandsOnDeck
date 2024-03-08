@@ -47,7 +47,7 @@ public class BuoyancyEffects : MonoBehaviour
             // Do the search
             if (targetSurface.FindWaterSurfaceHeight(searchParameters, out searchResult))
             {
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x, searchResult.height, gameObject.transform.position.z);
+                this.transform.position = new Vector3(gameObject.transform.position.x, searchResult.height, gameObject.transform.position.z);
 
                 float foreHeight = 0.0f;
                 float aftHeight = 0.0f;
@@ -75,12 +75,13 @@ public class BuoyancyEffects : MonoBehaviour
                     portHeight = searchResult.height;
                 }
 
-                float pitch = math.asin((aftHeight - foreHeight) * 100000 / (distanceFore + distanceAft));
+                float pitch = math.asin((aftHeight - foreHeight) / (distanceFore + distanceAft));
                 float roll = math.asin((starboardHeight - portHeight) / (distanceStarboard + distancePort));
 
                 if (float.IsNaN(pitch)) { pitch = 0; }
                 if (float.IsNaN(roll)) { roll = 0; }
-                gameObject.transform.rotation = Quaternion.Euler(pitch * 180.0f / (float)Math.PI, 0, roll * 180.0f / (float)Math.PI);
+
+                this.transform.rotation = Quaternion.Euler(pitch * 180.0f / (float)Math.PI, yaw * 180.0f / (float)Math.PI, roll * 180.0f / (float)Math.PI);
 
             }
         }
