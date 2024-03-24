@@ -4,6 +4,12 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+public enum TurnDirection
+{
+    Port,
+    Starboard
+}
+
 [RequireComponent(typeof(BuoyancyEffects))]
 public class BoatController : MonoBehaviour
 {
@@ -22,10 +28,14 @@ public class BoatController : MonoBehaviour
     protected float Steering = 0f;
 
     protected bool IsSailing = true;
+    protected bool IsPlayerControlled = false;
+
+    protected Collider WaypointCollider;
 
     public void Awake()
     {
         Rigidbody = GetComponent<Rigidbody>();
+        WaypointCollider = Waypoint.GetComponentInParent<Collider>();
     }
 
 
@@ -34,22 +44,19 @@ public class BoatController : MonoBehaviour
     {
         if (IsSailing)
         {
-            bool playerControlled = false;
+            if (IsPlayerControlled)
+            {
+                // Player is controlling the boat.
+                if (Input.GetKey(KeyCode.A))
+                {
+                    Steering -= SteeringSpeed;
+                }
+                else if (Input.GetKey(KeyCode.D))
+                {
+                    Steering += SteeringSpeed;
+                }
+                else { Steering = 0f; }
 
-            // Player is controlling the boat.
-            if (Input.GetKey(KeyCode.A))
-            {
-                playerControlled = true;
-                Steering -= SteeringSpeed;
-            }
-            else if (Input.GetKey(KeyCode.D))
-            {
-                playerControlled = true;
-                Steering += SteeringSpeed;
-            }
-
-            if (playerControlled)
-            {
                 Steering = Mathf.Clamp(Steering, -MaxSteering, MaxSteering);
 
                 // Rotate forward vector based on steering
@@ -73,9 +80,14 @@ public class BoatController : MonoBehaviour
         }
     }
 
+    public void SetPlayerControlled(bool isPlayerControlled)
+    {
+        IsPlayerControlled = isPlayerControlled;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other == Waypoint.GetComponentInParent<Collider>())
+        if (other == WaypointCollider)
         {
             if (Waypoint.IsDestination)
             {
@@ -85,6 +97,7 @@ public class BoatController : MonoBehaviour
             else
             {
                 Waypoint = Waypoint.Next;
+                WaypointCollider = Waypoint.GetComponentInParent<Collider>();
             }
         }
     }
