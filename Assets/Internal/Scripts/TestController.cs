@@ -25,6 +25,9 @@ public class TestController : MonoBehaviour
     private Vector3 mPlayerVelocity;
     private bool mIsGamepad = false;
 
+    private Vector2 mRelitivePos = new(0f, 0f);
+    private float mRelitiveYaw = 0f;
+
     void Awake()
     {
         mController = GetComponent<CharacterController>();
@@ -63,8 +66,8 @@ public class TestController : MonoBehaviour
 
     private void HandleMovement()
     {
-        Vector3 move = new Vector3(mMovement.x, 0f, mMovement.y);
-        mController.Move(move * Time.deltaTime * mPlayerSpeed);
+        Vector3 move = new(mMovement.x, 0f, mMovement.y);
+        mController.Move(mPlayerSpeed * Time.deltaTime * move);
 
         //mPlayerVelocity.y += mGravityValue * Time.deltaTime;
         //mController.Move(mPlayerVelocity * Time.deltaTime);
@@ -84,14 +87,12 @@ public class TestController : MonoBehaviour
                     transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotation, mGamepadRotateSmoothing * Time.deltaTime);
                 }
             }
-
         }
         else
         {
             Ray ray = Camera.main.ScreenPointToRay(mAim);
-            Plane groundPLane = new Plane(Vector3.up, Vector3.zero);
-            float rayDistance;
-            if (groundPLane.Raycast(ray, out rayDistance))
+            Plane groundPlane = new(Vector3.up, Vector3.zero);
+            if (groundPlane.Raycast(ray, out float rayDistance))
             {
                 Vector3 point = ray.GetPoint(rayDistance);
                 LookAt(point);
@@ -101,7 +102,7 @@ public class TestController : MonoBehaviour
 
     private void LookAt(Vector3 lookPoint)
     {
-        Vector3 heightCorrectedPoint = new Vector3(lookPoint.x, transform.position.y, lookPoint.z);
+        Vector3 heightCorrectedPoint = new(lookPoint.x, transform.position.y, lookPoint.z);
         transform.LookAt(heightCorrectedPoint);
     }
 

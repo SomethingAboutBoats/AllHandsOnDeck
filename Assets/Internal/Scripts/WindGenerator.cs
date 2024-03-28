@@ -23,7 +23,7 @@ public class WindGenerator : MonoBehaviour
             }
         }
 
-        this.DrawNewWindVector();
+        //this.DrawNewWindVector();
     }
 
     // Update is called once per frame

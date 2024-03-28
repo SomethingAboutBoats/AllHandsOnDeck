@@ -103,6 +103,7 @@ public class ShipDriver : MonoBehaviour
         Vector3 vel = mShipBody.velocity;
         float velTheta = math.atan2(vel.z, vel.x);
         float speed = math.sqrt(vel.x*vel.x + vel.z*vel.z);
+        Debug.Log("Speed: " + speed);
         float drag = mDragMagicNumber * speed*speed / 2;
         return new Vector3(-drag*math.cos(velTheta), 0f, -drag*math.sin(velTheta));
     }

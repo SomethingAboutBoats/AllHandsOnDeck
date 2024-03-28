@@ -178,6 +178,61 @@
                     "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "Right Stick [Joystick wireless]",
+                    "id": "00574eff-ed81-4a79-9bb7-3eb1d6e470f9",
+                    "path": "2DVector(mode=2)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Aim",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "down",
+                    "id": "589be97f-db1c-4b10-a4fa-a48dafa45b68",
+                    "path": "<HID::ࠁ 34885d78ff96>/rz",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "60396311-cde0-4882-bc0c-ba423a7721ac",
+                    "path": "<HID::ࠁ 34885d78ff96>/rz",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "0fe5a9cb-453b-4183-b751-4cb07315e39b",
+                    "path": "<HID::ࠁ 34885d78ff96>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "aaa389a4-aecf-4fc5-88ab-c88eb11b05cc",
+                    "path": "<HID::ࠁ 34885d78ff96>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
