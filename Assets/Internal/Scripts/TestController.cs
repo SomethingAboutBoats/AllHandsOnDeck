@@ -71,6 +71,8 @@ public class TestController : MonoBehaviour
         Vector3 positionUpdate = newParentTrans.position - mParentPreviousPos;
         mController.Move(positionUpdate);
 
+        // Angle issue here, it may only work when player is facing the back of the boat?
+        // Not having this appears to occasionally makes the player rotate around x or z axis wildly
         Vector3 boatRot = this.transform.parent.rotation.eulerAngles;
         this.transform.rotation = Quaternion.Euler(boatRot.x, this.transform.rotation.eulerAngles.y, boatRot.z);
 
@@ -164,22 +166,18 @@ public class TestController : MonoBehaviour
                 if (result > -45 && result <=45)
                 {
                     mAnimator.SetTrigger("WalkForward");
-                    Debug.Log("F");
                 }
                 else if (result > 45 && result <= 135)
                 {
                     mAnimator.SetTrigger("WalkRight");
-                    Debug.Log("R");
                 }
                 else if (result > -135 && result <= -45)
                 {
                     mAnimator.SetTrigger("WalkLeft");
-                    Debug.Log("L");
                 }
                 else
                 {
                     mAnimator.SetTrigger("WalkBack");
-                    Debug.Log("B");
                 }
             }
             else
