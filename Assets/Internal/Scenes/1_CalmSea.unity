@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 4
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1525.8175, g: 1929.9084, b: 3561.3403, a: 1}
+  m_IndirectSpecularColor: {r: 1525.2023, g: 1929.6741, b: 3562.4028, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -172,7 +172,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mPlayerSpeed: 5
   mGamepadRotateSmoothing: 1000
-  mGravityValue: -9.8
   mControllerDeadzone: 0.1
 --- !u!143 &86146226
 CharacterController:
@@ -1366,6 +1365,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaseShip
       objectReference: {fileID: 0}
+    - target: {fileID: 8364436742238268520, guid: 6c6a84a23657ade4eb5127944ee8d1a7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8364436742238268520, guid: 6c6a84a23657ade4eb5127944ee8d1a7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8364436742238268520, guid: 6c6a84a23657ade4eb5127944ee8d1a7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8364436742238268520, guid: 6c6a84a23657ade4eb5127944ee8d1a7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5416549425637864355, guid: 6c6a84a23657ade4eb5127944ee8d1a7, type: 3}
     - {fileID: -6036876370742737922, guid: 6c6a84a23657ade4eb5127944ee8d1a7, type: 3}
@@ -1380,11 +1399,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6c6a84a23657ade4eb5127944ee8d1a7,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1823688467}
+      addedObject: {fileID: 86146220}
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6c6a84a23657ade4eb5127944ee8d1a7,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 86146220}
+      addedObject: {fileID: 1823688467}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6c6a84a23657ade4eb5127944ee8d1a7,
         type: 3}
@@ -19142,7 +19161,7 @@ Transform:
   m_GameObject: {fileID: 1823688464}
   serializedVersion: 2
   m_LocalRotation: {x: 0.17080802, y: 0.68616664, z: -0.17080805, w: 0.68616664}
-  m_LocalPosition: {x: -15.460006, y: 12.5, z: 1.2300014}
+  m_LocalPosition: {x: -15.460023, y: 12.5, z: 1.2300043}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

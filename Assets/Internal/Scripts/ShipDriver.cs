@@ -44,8 +44,9 @@ public class ShipDriver : MonoBehaviour
     {
         // 0 to 360 Degrees
         // return (angleDeg % 360 + 360) % 360;
+
         // -180 to 180 Degrees
-        return  angleDeg - (float)math.floor(angleDeg / 360 + 0.5) * 360;
+        return angleDeg - (float)math.floor(angleDeg / 360 + 0.5) * 360;
     }
 
     // Back out roll and pitch to get the yaw relative to y axis (2d simplification)
@@ -80,7 +81,7 @@ public class ShipDriver : MonoBehaviour
 
         float optimalSailAngle = math.abs(absWindAngle / 2);
 
-        Debug.Log("Sail Angle: " + sailAngle + ", Optimal Sail Angle: " + optimalSailAngle);
+        //Debug.Log("Sail Angle: " + sailAngle + ", Optimal Sail Angle: " + optimalSailAngle);
 
         float angleErrorDeg = sailAngle - optimalSailAngle;
 
@@ -103,7 +104,7 @@ public class ShipDriver : MonoBehaviour
         Vector3 vel = mShipBody.velocity;
         float velTheta = math.atan2(vel.z, vel.x);
         float speed = math.sqrt(vel.x*vel.x + vel.z*vel.z);
-        Debug.Log("Speed: " + speed);
+        //Debug.Log("Speed: " + speed);
         float drag = mDragMagicNumber * speed*speed / 2;
         return new Vector3(-drag*math.cos(velTheta), 0f, -drag*math.sin(velTheta));
     }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.InputSystem;
@@ -13,7 +15,6 @@ public class TestController : MonoBehaviour
 {
     public float mPlayerSpeed = 5f;
     public float mGamepadRotateSmoothing = 1000f;
-    [SerializeField] private float mGravityValue = -9.8f;
     [SerializeField] private float mControllerDeadzone = 0.1f;
 
     private CharacterController mController;
@@ -22,11 +23,12 @@ public class TestController : MonoBehaviour
 
     private Vector2 mMovement;
     private Vector2 mAim;
-    private Vector3 mPlayerVelocity;
     private bool mIsGamepad = false;
 
-    private Vector2 mRelitivePos = new(0f, 0f);
+    private Vector3 mParentPreviousPos;
     private float mRelitiveYaw = 0f;
+
+    private Animator mAnimator;
 
     void Awake()
     {
@@ -37,7 +39,6 @@ public class TestController : MonoBehaviour
 
     void OnEnable()
     {
-        Debug.Log(mPlayerControls);
         mPlayerControls.Enable();
     }
 
@@ -49,13 +50,31 @@ public class TestController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        mAnimator = GetComponent<Animator>();
+        mParentPreviousPos = this.transform.parent.transform.position;
     }
+
     // Update is called once per frame
     void Update()
     {
+        UpdateToParent();
         HandleInput();
-        HandleMovement();
+        GetCameraAxis();
         HandleRotation();
+        HandleMovement();
+        SetMotionAnimation();
+    }
+
+    private void UpdateToParent()
+    {
+        Transform newParentTrans = this.transform.parent.transform;
+        Vector3 positionUpdate = newParentTrans.position - mParentPreviousPos;
+        mController.Move(positionUpdate);
+
+        Vector3 boatRot = this.transform.parent.rotation.eulerAngles;
+        this.transform.rotation = Quaternion.Euler(boatRot.x, this.transform.rotation.eulerAngles.y, boatRot.z);
+
+        mParentPreviousPos = newParentTrans.position;
     }
 
     private void HandleInput()
@@ -64,13 +83,20 @@ public class TestController : MonoBehaviour
         mAim = mPlayerControls.Controls.Aim.ReadValue<Vector2>();
     }
 
+    private void GetCameraAxis()
+    {
+        Transform camTransform = Camera.main.GetComponent<Transform>();
+        if (camTransform)
+        {
+            mRelitiveYaw = camTransform.rotation.eulerAngles.y;
+        }
+    }
+
     private void HandleMovement()
     {
-        Vector3 move = new(mMovement.x, 0f, mMovement.y);
-        mController.Move(mPlayerSpeed * Time.deltaTime * move);
-
-        //mPlayerVelocity.y += mGravityValue * Time.deltaTime;
-        //mController.Move(mPlayerVelocity * Time.deltaTime);
+        Vector3 moveForward = new(mMovement.x * Mathf.Cos(mRelitiveYaw * Mathf.PI / 180), 0f, mMovement.x * -Mathf.Sin(mRelitiveYaw * Mathf.PI / 180));
+        Vector3 moveRight = new(mMovement.y * Mathf.Sin(mRelitiveYaw * Mathf.PI / 180), 0f, mMovement.y * Mathf.Cos(mRelitiveYaw * Mathf.PI / 180));
+        mController.Move(mPlayerSpeed * Time.deltaTime * (moveForward + moveRight));
     }
 
     private void HandleRotation()
@@ -80,11 +106,13 @@ public class TestController : MonoBehaviour
         {
             if (Mathf.Abs(mAim.x) > mControllerDeadzone || Mathf.Abs(mAim.y) > mControllerDeadzone)
             {
-                Vector3 playerDirection = Vector3.right * mAim.x + Vector3.forward * mAim.y;
+                Vector3 lookForward = new(mAim.x * Mathf.Cos(mRelitiveYaw * Mathf.PI / 180), 0f, mAim.x * -Mathf.Sin(mRelitiveYaw * Mathf.PI / 180));
+                Vector3 lookRight = new(mAim.y * Mathf.Sin(mRelitiveYaw * Mathf.PI / 180), 0f, mAim.y * Mathf.Cos(mRelitiveYaw * Mathf.PI / 180));
+                Vector3 playerDirection = lookForward + lookRight;
                 if (playerDirection.sqrMagnitude > 0)
                 {
                     Quaternion newRotation = Quaternion.LookRotation(playerDirection, Vector3.up);
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation, newRotation, mGamepadRotateSmoothing * Time.deltaTime);
+                    this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, newRotation, mGamepadRotateSmoothing * Time.deltaTime);
                 }
             }
         }
@@ -113,5 +141,68 @@ public class TestController : MonoBehaviour
     public void OnDeviceChange(PlayerInput pi)
     {
         mIsGamepad = pi.currentControlScheme.Equals("Controller") || pi.currentControlScheme.Equals("Joystick");
+    }
+
+    // Sets the motion animaition based on the direction character is moving and the character rotation
+    // ie: Forward Walk is played when character moves in the direction that character is pointed
+    void SetMotionAnimation()
+    {
+        if (mAnimator)
+        {
+            if (mMovement.x*mMovement.x + mMovement.y*mMovement.y > 0.000001)
+            {
+                // Probably don't need all the normalizes, but I don't feel like retesting
+                // Find direction character is moving from the camera
+                float boatYaw =  NormalizeAngle(GetAbsYaw(this.transform.parent.transform));
+                float camYaw = NormalizeAngle(mRelitiveYaw - boatYaw);
+                float relTheta = NormalizeAngle((Mathf.Atan2(mMovement.y, -mMovement.x) * 180 / Mathf.PI) + (camYaw - 90));
+                // Find the angle of the player on the boat
+                float playerRelYaw = NormalizeAngle(GetAbsYaw(this.transform)) - boatYaw;
+                // Get relative angle, and use to set walk animation
+                float result = NormalizeAngle(relTheta-playerRelYaw);
+
+                if (result > -45 && result <=45)
+                {
+                    mAnimator.SetTrigger("WalkForward");
+                    Debug.Log("F");
+                }
+                else if (result > 45 && result <= 135)
+                {
+                    mAnimator.SetTrigger("WalkRight");
+                    Debug.Log("R");
+                }
+                else if (result > -135 && result <= -45)
+                {
+                    mAnimator.SetTrigger("WalkLeft");
+                    Debug.Log("L");
+                }
+                else
+                {
+                    mAnimator.SetTrigger("WalkBack");
+                    Debug.Log("B");
+                }
+            }
+            else
+            {
+                mAnimator.SetTrigger("Stop");
+            }
+        }
+    }
+
+    public static float NormalizeAngle(float angleDeg)
+    {
+        // 0 to 360 Degrees
+        // return (angleDeg % 360 + 360) % 360;
+
+        // -180 to 180 Degrees
+        return angleDeg - (float)math.floor(angleDeg / 360 + 0.5) * 360;
+    }
+
+    // Back out roll and pitch to get the yaw relative to y axis (2d simplification)
+    private float GetAbsYaw(Transform transform)
+    {
+        float roll = transform.rotation.eulerAngles.z;
+        float pitch = transform.rotation.eulerAngles.x;
+        return (transform.rotation * Quaternion.Euler(-pitch, 0f, -roll)).eulerAngles.y;
     }
 }

@@ -193,7 +193,7 @@
                 {
                     "name": "down",
                     "id": "589be97f-db1c-4b10-a4fa-a48dafa45b68",
-                    "path": "<HID::ࠁ 34885d78ff96>/rz",
+                    "path": "<HID::ࠇ 34885d78ff96>/rz",
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
@@ -204,7 +204,7 @@
                 {
                     "name": "down",
                     "id": "60396311-cde0-4882-bc0c-ba423a7721ac",
-                    "path": "<HID::ࠁ 34885d78ff96>/rz",
+                    "path": "<HID::ࠁ EFDB9C27>/rz",
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
@@ -215,7 +215,7 @@
                 {
                     "name": "right",
                     "id": "0fe5a9cb-453b-4183-b751-4cb07315e39b",
-                    "path": "<HID::ࠁ 34885d78ff96>/z",
+                    "path": "<HID::ࠇ 34885d78ff96>/z",
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
@@ -226,7 +226,7 @@
                 {
                     "name": "right",
                     "id": "aaa389a4-aecf-4fc5-88ab-c88eb11b05cc",
-                    "path": "<HID::ࠁ 34885d78ff96>/z",
+                    "path": "<HID::ࠁ EFDB9C27>/z",
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
