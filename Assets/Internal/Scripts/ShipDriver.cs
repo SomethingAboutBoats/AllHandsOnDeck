@@ -4,18 +4,15 @@ using Unity.Mathematics;
 public class ShipDriver : MonoBehaviour
 {
     public float mMaxSpeedPerSail = 0;
+    public float mAccelRate = 1f;
 
     IWindBehavior[] mSails;
-    float mVelMax = 0f;
-    float mDragMagicNumber = 0f;
-
     Rigidbody mShipBody = null;
+
     // Start is called before the first frame update
     void Start()
     {
         mSails = GetComponentsInChildren<IWindBehavior>();
-        mVelMax = mMaxSpeedPerSail * mSails.Length;
-        mDragMagicNumber = math.pow(math.sqrt(2) / mVelMax, 2);
         mShipBody = this.GetComponent<Rigidbody>();
     }
 
@@ -25,19 +22,35 @@ public class ShipDriver : MonoBehaviour
         float absBoatYaw = NormalizeAngle(GetAbsYaw(this.transform));
         float absWindAngle = GetAbsWindAngle(absBoatYaw);
 
+        float windForce = 0f;
         // Semi-unrealistic, but allow for adding sails to improve speed
         foreach (IWindBehavior sail in mSails)
         {
-            float windForce = GetForceRatio(sail, absBoatYaw, absWindAngle);
-            float zForceComp = -windForce * math.sin((absBoatYaw + 90)*math.PI/180);
-            float xForceComp = windForce * math.cos((absBoatYaw + 90)*math.PI/180);
-            mShipBody.AddForce(new Vector3(xForceComp, 0f, zForceComp));
+            windForce += GetForceRatio(sail, absBoatYaw, absWindAngle);
         }
 
-        // Add Water Drag to force max velocities
-        Vector3 dragForce = this.GetWaterDragForce();
+        mShipBody.angularVelocity = new(0f, 0f, 0f);
+        mShipBody.velocity = CalcSpeed(windForce) * -transform.forward;
+        Debug.Log("Ship Speed: " + mShipBody.velocity.magnitude);
+    }
 
-        mShipBody.AddForce(dragForce);
+    float CalcSpeed(float forceMult)
+    {
+        float maxCurrSpeed = mMaxSpeedPerSail * forceMult;
+        float currSpeed = mShipBody.velocity.magnitude;
+
+        if (currSpeed < maxCurrSpeed)
+        {
+            return currSpeed + mAccelRate*Time.deltaTime;
+        }
+        else if (currSpeed > maxCurrSpeed)
+        {
+            return currSpeed - mAccelRate*Time.deltaTime;
+        }
+        else
+        {
+            return maxCurrSpeed;
+        }
     }
 
     public static float NormalizeAngle(float angleDeg)
@@ -81,7 +94,7 @@ public class ShipDriver : MonoBehaviour
 
         float optimalSailAngle = math.abs(absWindAngle / 2);
 
-        //Debug.Log("Sail Angle: " + sailAngle + ", Optimal Sail Angle: " + optimalSailAngle);
+        Debug.Log("Sail Angle: " + sailAngle + ", Optimal Sail Angle: " + optimalSailAngle);
 
         float angleErrorDeg = sailAngle - optimalSailAngle;
 
@@ -95,17 +108,5 @@ public class ShipDriver : MonoBehaviour
         {
             return 0f;
         }
-    }
-
-    // Get a force vector pointing the opposite direction of velocity (in x,z)
-    // Force set to top out boat at max speed of 10m/s per sail with mass of 1
-    private Vector3 GetWaterDragForce()
-    {
-        Vector3 vel = mShipBody.velocity;
-        float velTheta = math.atan2(vel.z, vel.x);
-        float speed = math.sqrt(vel.x*vel.x + vel.z*vel.z);
-        //Debug.Log("Speed: " + speed);
-        float drag = mDragMagicNumber * speed*speed / 2;
-        return new Vector3(-drag*math.cos(velTheta), 0f, -drag*math.sin(velTheta));
     }
 }
