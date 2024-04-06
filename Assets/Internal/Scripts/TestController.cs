@@ -155,7 +155,7 @@ public class TestController : MonoBehaviour
     {
         if (mAnimator)
         {
-            if (mMovement.x*mMovement.x + mMovement.y*mMovement.y > 0.000001)
+            if (_canMove && mMovement.x*mMovement.x + mMovement.y*mMovement.y > 0.000001)
             {
                 // Probably don't need all the normalizes, but I don't feel like retesting
                 // Find direction character is moving from the camera
