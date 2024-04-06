@@ -9,7 +9,7 @@ public class SteeringWheel : MonoBehaviour, IInteractable
     public BoatController BoatController;
 
     private bool _isInteracting = false;
-    private CharacterMover _sourceMover;
+    private TestController _sourceMover;
 
     public void OnInteract(Interactor interactor)
     {
@@ -17,7 +17,7 @@ public class SteeringWheel : MonoBehaviour, IInteractable
         {
             if (BoatController != null && interactor != null)
             {
-                if (interactor.gameObject.TryGetComponent<CharacterMover>(out _sourceMover))
+                if (interactor.gameObject.TryGetComponent<TestController>(out _sourceMover))
                 {
                     Debug.Log("Giving Player Control of the Boat.");
 
@@ -42,7 +42,7 @@ public class SteeringWheel : MonoBehaviour, IInteractable
                     _sourceMover.CanMove(true);
                 if (BoatController != null)
                     BoatController.SetPlayerControlled(false);
-            } 
+            }
         }
     }
 }

@@ -14,14 +14,10 @@ public enum TurnDirection
 public class BoatController : MonoBehaviour
 {
     public Waypoint Waypoint;
-
-    public float MaxSpeed = 10f;
-    public float Speed = 5f;
     public float RotateAngle = 10f;
     public float SteeringSpeed = 0.2f;
     public float MaxSteering = 1f;
     public float AutoSteerSpeed = 0.2f;
-
 
     protected Rigidbody Rigidbody;
     protected Quaternion StartRotation;
@@ -37,7 +33,6 @@ public class BoatController : MonoBehaviour
         Rigidbody = GetComponent<Rigidbody>();
         WaypointCollider = Waypoint.GetComponentInParent<Collider>();
     }
-
 
     // Update is called once per frame
     void FixedUpdate()
@@ -62,10 +57,10 @@ public class BoatController : MonoBehaviour
                 // Rotate forward vector based on steering
                 transform.Rotate(Vector3.up, Steering * RotateAngle);
             }
-            // Boat is sailing itself. 
+            // Boat is sailing itself.
             else if (Waypoint != null)
             {
-                Vector3 towardWaypoint = Waypoint.transform.position - transform.position;
+                Vector3 towardWaypoint = -(Waypoint.transform.position - transform.position);
                 Quaternion target = Quaternion.LookRotation(towardWaypoint);
 
                 transform.rotation = Quaternion.Slerp(transform.rotation, target, AutoSteerSpeed * Time.deltaTime);
@@ -74,9 +69,6 @@ public class BoatController : MonoBehaviour
             {
                 Debug.Log("Not being controller by player nor is waypoint set... Doing nothing.");
             }
-
-            //move in direction
-            Rigidbody.velocity = transform.forward * Speed;
         }
     }
 
