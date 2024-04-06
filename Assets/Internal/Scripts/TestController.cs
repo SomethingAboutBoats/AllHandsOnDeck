@@ -24,6 +24,7 @@ public class TestController : MonoBehaviour
     private Vector2 mMovement;
     private Vector2 mAim;
     private bool mIsGamepad = false;
+    private bool _canMove = true;
 
     private Vector3 mParentPreviousPos;
     private float mRelitiveYaw = 0f;
@@ -59,9 +60,12 @@ public class TestController : MonoBehaviour
     {
         UpdateToParent();
         HandleInput();
-        GetCameraAxis();
-        HandleRotation();
-        HandleMovement();
+        if (_canMove)
+        {
+            GetCameraAxis();
+            HandleRotation();
+            HandleMovement();
+        }
         SetMotionAnimation();
     }
 
@@ -202,5 +206,10 @@ public class TestController : MonoBehaviour
         float roll = transform.rotation.eulerAngles.z;
         float pitch = transform.rotation.eulerAngles.x;
         return (transform.rotation * Quaternion.Euler(-pitch, 0f, -roll)).eulerAngles.y;
+    }
+
+    public void CanMove(bool canMove)
+    {
+        _canMove = canMove;
     }
 }

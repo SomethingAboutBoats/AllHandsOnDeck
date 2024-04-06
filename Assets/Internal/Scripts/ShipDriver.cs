@@ -31,7 +31,7 @@ public class ShipDriver : MonoBehaviour
 
         mShipBody.angularVelocity = new(0f, 0f, 0f);
         mShipBody.velocity = CalcSpeed(windForce) * -transform.forward;
-        Debug.Log("Ship Speed: " + mShipBody.velocity.magnitude);
+        // Debug.Log("Ship Speed: " + mShipBody.velocity.magnitude);
     }
 
     float CalcSpeed(float forceMult)
@@ -94,7 +94,7 @@ public class ShipDriver : MonoBehaviour
 
         float optimalSailAngle = math.abs(absWindAngle / 2);
 
-        Debug.Log("Sail Angle: " + sailAngle + ", Optimal Sail Angle: " + optimalSailAngle);
+        // Debug.Log("Sail Angle: " + sailAngle + ", Optimal Sail Angle: " + optimalSailAngle);
 
         float angleErrorDeg = sailAngle - optimalSailAngle;
 
