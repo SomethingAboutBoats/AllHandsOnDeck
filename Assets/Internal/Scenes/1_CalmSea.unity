@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1536.0266, g: 1951.0393, b: 3625.4263, a: 1}
+  m_IndirectSpecularColor: {r: 1526.6398, g: 1932.4983, b: 3569.7622, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1331,6 +1331,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8632005032989883872, guid: 93c7819ec54b9094880c63ce6c8411e7,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1743,6 +1748,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1490398518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1490398506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5174c97877d5d13489184de3cc11083c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceFore: 0
+  distanceAft: 0
+  distanceStarboard: 0
+  distancePort: 0
+  targetSurface: {fileID: 0}
 --- !u!1001 &1517340375
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1978,6 +2000,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1490398510}
+    - targetCorrespondingSourceObject: {fileID: 7552933894688688095, guid: 6c6a84a23657ade4eb5127944ee8d1a7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1490398518}
     - targetCorrespondingSourceObject: {fileID: -490596226660382380, guid: 6c6a84a23657ade4eb5127944ee8d1a7,
         type: 3}
       insertIndex: -1
@@ -19672,6 +19698,12 @@ MonoBehaviour:
   mObject2: {fileID: 672909696122832361, guid: 19f67bc314c270544ab73106708112e0, type: 3}
   mObject3: {fileID: 8062951018333033697, guid: c8409111118b1504f8e081160a4ed727,
     type: 3}
+  mMinTimeToHazard: 5
+  mMaxTimeToHazard: 20
+  mBoatWidthDraw: 10
+  mMinScale: 2
+  mMaxScale: 5
+  targetSurface: {fileID: 548857701}
 --- !u!1 &1823688464
 GameObject:
   m_ObjectHideFlags: 0
@@ -20225,7 +20257,7 @@ PrefabInstance:
     - target: {fileID: 8632005032989883872, guid: 4052df1de561f8b4da6b56fb1eeced01,
         type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 0.4
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

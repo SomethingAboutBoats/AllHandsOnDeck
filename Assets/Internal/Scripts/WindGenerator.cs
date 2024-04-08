@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
+public interface IWindBehavior
+{
+    public void SetWindSpeed(Vector3 WindVect);
+    public Transform GetTransform { get; }
+    public float GetWindYawDeg { get; }
+}
+
 public class WindGenerator : MonoBehaviour
 {
     public float minWindSpeed = 15f;
