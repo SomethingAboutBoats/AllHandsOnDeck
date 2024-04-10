@@ -6,13 +6,13 @@ public class ShipDriver : MonoBehaviour
     public float mMaxSpeedPerSail = 0;
     public float mAccelRate = 1f;
 
-    IWindBehavior[] mSails;
+    SailWind[] mSails;
     Rigidbody mShipBody = null;
 
     // Start is called before the first frame update
     void Start()
     {
-        mSails = GetComponentsInChildren<IWindBehavior>();
+        mSails = GetComponentsInChildren<SailWind>();
         mShipBody = this.GetComponent<Rigidbody>();
     }
 
@@ -24,7 +24,7 @@ public class ShipDriver : MonoBehaviour
 
         float windForce = 0f;
         // Semi-unrealistic, but allow for adding sails to improve speed
-        foreach (IWindBehavior sail in mSails)
+        foreach (SailWind sail in mSails)
         {
             windForce += GetForceRatio(sail, absBoatYaw, absWindAngle);
         }
