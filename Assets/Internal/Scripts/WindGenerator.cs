@@ -34,7 +34,7 @@ public class WindGenerator : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update() { }
+    void Update() { SetAllWindVectors(new(0,0,-25)); }
 
     void DrawNewWindVector()
     {
@@ -42,6 +42,14 @@ public class WindGenerator : MonoBehaviour
         float direction = UnityEngine.Random.Range(0f, 2*math.PI);
         Vector3 windVect = new Vector3(math.cos(direction), 0, math.sin(direction)) * strength;
 
+        foreach (IWindBehavior windAffectedThing in this.m_AllWindAffected)
+        {
+            windAffectedThing.SetWindSpeed(windVect);
+        }
+    }
+
+    void SetAllWindVectors(Vector3 windVect)
+    {
         foreach (IWindBehavior windAffectedThing in this.m_AllWindAffected)
         {
             windAffectedThing.SetWindSpeed(windVect);

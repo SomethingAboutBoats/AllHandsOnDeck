@@ -70,7 +70,6 @@ public class HazardGenerator : MonoBehaviour
         searchParameters.maxIterations = 8;
         if (targetSurface.FindWaterSurfaceHeight(searchParameters, out searchResult))
         {
-            Debug.Log(searchResult.height + " " + objectPosition.y);
             objectPosition.y = Mathf.Min(searchResult.height, objectPosition.y);
         }
 
