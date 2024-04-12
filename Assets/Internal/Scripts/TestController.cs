@@ -79,10 +79,10 @@ public class TestController : MonoBehaviour
         mParentPreviousPos = newParentTrans.position;
 
         // Bug appears to be fixed, removing for now, as player rotation looks better without this
-            // Angle issue here, it may only work when player is facing the back of the boat?
-            // Not having this appears to occasionally makes the player rotate around x or z axis wildly
-            // Vector3 boatRot = this.transform.parent.rotation.eulerAngles;
-            // this.transform.rotation = Quaternion.Euler(boatRot.x, this.transform.rotation.eulerAngles.y, boatRot.z);
+        // Angle issue here, it may only work when player is facing the back of the boat?
+        // Not having this appears to occasionally makes the player rotate around x or z axis wildly
+        Vector3 boatRot = this.transform.parent.rotation.eulerAngles;
+        this.transform.rotation = Quaternion.Euler(boatRot.x, this.transform.rotation.eulerAngles.y, boatRot.z);
     }
 
     private void HandleInput()

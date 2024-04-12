@@ -13,6 +13,7 @@ public class SteeringWheel : MonoBehaviour, IInteractable
 
     public void OnInteract(Interactor interactor)
     {
+        Debug.Log("Interacting");
         if (!_isInteracting)
         {
             if (BoatController != null && interactor != null)

@@ -61,7 +61,7 @@ public class HazardGenerator : MonoBehaviour
 
         // Instantiate new object
         Vector3 shipPos = mShip.transform.position;
-        Vector3 objectPosition = shipPos + (-mShip.transform.forward * shipSpeed * rangeSec) + (mShip.transform.right * offsetM);
+        Vector3 objectPosition = shipPos + (rangeSec * shipSpeed * mShip.transform.forward) + (mShip.transform.right * offsetM);
 
         // Make sure object spawns at water level
         searchParameters.startPosition = searchResult.candidateLocation;
