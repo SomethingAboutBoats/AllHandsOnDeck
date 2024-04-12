@@ -31,8 +31,7 @@ public class ShipDriver : MonoBehaviour
             windForce += GetForceRatio(sail, absBoatYaw, absWindAngle);
         }
 
-        // mShipBody.angularVelocity = new(0f, 0f, 0f);
-        mShipBody.velocity = mShipBody.transform.forward * 10;
+        mShipBody.velocity = CalcSpeed(windForce) * transform.forward;
         Debug.Log("Ship Speed: " + mShipBody.velocity.magnitude);
     }
 

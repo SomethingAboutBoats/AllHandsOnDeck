@@ -16,6 +16,7 @@ public class TestController : MonoBehaviour
     public float mPlayerSpeed = 5f;
     public float mGamepadRotateSmoothing = 1000f;
     [SerializeField] private float mControllerDeadzone = 0.1f;
+    [SerializeField] private float mGravityValue = -9.8f;
 
     private CharacterController mController;
     private PlayerControls mPlayerControls;
@@ -60,6 +61,7 @@ public class TestController : MonoBehaviour
     {
         UpdateToParent();
         HandleInput();
+        // ApplyGravity();
         if (_canMove)
         {
             GetCameraAxis();
@@ -74,19 +76,25 @@ public class TestController : MonoBehaviour
         Transform newParentTrans = this.transform.parent.transform;
         Vector3 positionUpdate = newParentTrans.position - mParentPreviousPos;
         mController.Move(positionUpdate);
-
-        // Angle issue here, it may only work when player is facing the back of the boat?
-        // Not having this appears to occasionally makes the player rotate around x or z axis wildly
-        Vector3 boatRot = this.transform.parent.rotation.eulerAngles;
-        this.transform.rotation = Quaternion.Euler(boatRot.x, this.transform.rotation.eulerAngles.y, boatRot.z);
-
         mParentPreviousPos = newParentTrans.position;
+
+        // Bug appears to be fixed, removing for now, as player rotation looks better without this
+            // Angle issue here, it may only work when player is facing the back of the boat?
+            // Not having this appears to occasionally makes the player rotate around x or z axis wildly
+            // Vector3 boatRot = this.transform.parent.rotation.eulerAngles;
+            // this.transform.rotation = Quaternion.Euler(boatRot.x, this.transform.rotation.eulerAngles.y, boatRot.z);
     }
 
     private void HandleInput()
     {
         mMovement = mPlayerControls.Controls.Movement.ReadValue<Vector2>();
         mAim = mPlayerControls.Controls.Aim.ReadValue<Vector2>();
+    }
+
+    private void ApplyGravity()
+    {
+        Vector3 fallVel = new(0f, mGravityValue * Time.deltaTime, 0f);
+        mController.Move(fallVel * Time.deltaTime);
     }
 
     private void GetCameraAxis()
