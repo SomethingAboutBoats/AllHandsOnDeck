@@ -7,6 +7,7 @@ public class ShipDriver : MonoBehaviour
     public float mAccelRate = 1f;
 
     SailWind[] mSails;
+    // public Rigidbody mShipBody = null;
     Rigidbody mShipBody = null;
 
     // Start is called before the first frame update
@@ -19,6 +20,7 @@ public class ShipDriver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(mSails.Length);
         float absBoatYaw = NormalizeAngle(GetAbsYaw(this.transform));
         float absWindAngle = GetAbsWindAngle(absBoatYaw);
 
@@ -29,9 +31,9 @@ public class ShipDriver : MonoBehaviour
             windForce += GetForceRatio(sail, absBoatYaw, absWindAngle);
         }
 
-        mShipBody.angularVelocity = new(0f, 0f, 0f);
-        mShipBody.velocity = CalcSpeed(windForce) * -transform.forward;
-        // Debug.Log("Ship Speed: " + mShipBody.velocity.magnitude);
+        // mShipBody.angularVelocity = new(0f, 0f, 0f);
+        mShipBody.velocity = mShipBody.transform.forward * 10;
+        Debug.Log("Ship Speed: " + mShipBody.velocity.magnitude);
     }
 
     float CalcSpeed(float forceMult)
@@ -94,7 +96,7 @@ public class ShipDriver : MonoBehaviour
 
         float optimalSailAngle = math.abs(absWindAngle / 2);
 
-        // Debug.Log("Sail Angle: " + sailAngle + ", Optimal Sail Angle: " + optimalSailAngle);
+        Debug.Log("Sail Angle: " + sailAngle + ", Optimal Sail Angle: " + optimalSailAngle);
 
         float angleErrorDeg = sailAngle - optimalSailAngle;
 
