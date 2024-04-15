@@ -4,7 +4,7 @@ using Unity.Mathematics;
 public class ShipDriver : MonoBehaviour
 {
     public float mMaxSpeedPerSail = 0;
-    public float mAccelRate = 1f;
+    public float mAccelRate = 10f;
 
     SailWind[] mSails;
     // public Rigidbody mShipBody = null;
@@ -29,7 +29,6 @@ public class ShipDriver : MonoBehaviour
         {
             windForce += GetForceRatio(sail, absBoatYaw, absWindAngle);
         }
-
         mShipBody.velocity = CalcSpeed(windForce) * transform.forward;
         // Debug.Log("Ship Speed: " + math.sqrt((mShipBody.velocity.x * mShipBody.velocity.x) + (mShipBody.velocity.z * mShipBody.velocity.z)));
     }
@@ -41,11 +40,11 @@ public class ShipDriver : MonoBehaviour
 
         if (currSpeed < maxCurrSpeed)
         {
-            return currSpeed + mAccelRate*Time.deltaTime;
+            return currSpeed + (mAccelRate*Time.deltaTime);
         }
         else if (currSpeed > maxCurrSpeed)
         {
-            return currSpeed - mAccelRate*Time.deltaTime;
+            return currSpeed - (mAccelRate*Time.deltaTime);
         }
         else
         {
