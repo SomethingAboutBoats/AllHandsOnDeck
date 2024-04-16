@@ -29,6 +29,7 @@ public class TestController : MonoBehaviour
 
     private Vector3 mParentPreviousPos;
     private float mRelitiveYaw = 0f;
+    private Vector3 mLocalPos = new(0f,0f,0f);
 
     private Animator mAnimator;
 
@@ -53,11 +54,13 @@ public class TestController : MonoBehaviour
     void Start()
     {
         mAnimator = GetComponent<Animator>();
+
         mParentPreviousPos = this.transform.parent.transform.position;
+        mLocalPos = this.transform.localPosition;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         UpdateToParent();
         HandleInput();
@@ -69,6 +72,7 @@ public class TestController : MonoBehaviour
             HandleMovement();
         }
         SetMotionAnimation();
+        mLocalPos = this.transform.localPosition;
     }
 
     private void UpdateToParent()
@@ -81,8 +85,10 @@ public class TestController : MonoBehaviour
         // Bug appears to be fixed, removing for now, as player rotation looks better without this
         // Angle issue here, it may only work when player is facing the back of the boat?
         // Not having this appears to occasionally makes the player rotate around x or z axis wildly
-        Vector3 boatRot = this.transform.parent.rotation.eulerAngles;
-        this.transform.rotation = Quaternion.Euler(boatRot.x, this.transform.rotation.eulerAngles.y, boatRot.z);
+        // Vector3 boatRot = this.transform.parent.rotation.eulerAngles;
+        // this.transform.rotation = Quaternion.Euler(boatRot.x, this.transform.rotation.eulerAngles.y, boatRot.z);
+
+        this.transform.localPosition = mLocalPos;
     }
 
     private void HandleInput()
