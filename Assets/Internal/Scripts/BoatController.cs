@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 
@@ -25,6 +26,7 @@ public class BoatController : MonoBehaviour
 
     protected bool IsSailing = true;
     protected bool IsPlayerControlled = false;
+    private TestController _sourceMover;
 
     protected Collider WaypointCollider;
 
@@ -54,18 +56,18 @@ public class BoatController : MonoBehaviour
     {
         if (IsSailing)
         {
-            if (IsPlayerControlled)
+            if (IsPlayerControlled && _sourceMover != null)
             {
                 // Player is controlling the boat.
-                if (Input.GetKey(KeyCode.A))
+                float rotateSpeed = _sourceMover.GetLeftRight();
+                if (math.abs(rotateSpeed) == 0f)
                 {
-                    Steering -= SteeringSpeed;
+                    Steering = 0f;
                 }
-                else if (Input.GetKey(KeyCode.D))
+                else
                 {
-                    Steering += SteeringSpeed;
+                    Steering += SteeringSpeed * rotateSpeed;
                 }
-                else { Steering = 0f; }
 
                 Steering = Mathf.Clamp(Steering, -MaxSteering, MaxSteering);
 
@@ -107,5 +109,10 @@ public class BoatController : MonoBehaviour
                 WaypointCollider = Waypoint.GetComponentInParent<Collider>();
             }
         }
+    }
+
+    public void SetSourceMover(TestController sourceMover)
+    {
+        this._sourceMover = sourceMover;
     }
 }

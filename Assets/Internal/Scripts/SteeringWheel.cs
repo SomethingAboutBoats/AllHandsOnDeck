@@ -24,6 +24,7 @@ public class SteeringWheel : MonoBehaviour, IInteractable
 
                     _isInteracting = true;
                     _sourceMover.CanMove(false);
+                    BoatController.SetSourceMover(_sourceMover);
                     BoatController.SetPlayerControlled(true);
                 }
             }
@@ -32,9 +33,9 @@ public class SteeringWheel : MonoBehaviour, IInteractable
 
     public void Update()
     {
-        if (_isInteracting)
+        if (_isInteracting && _sourceMover != null)
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (_sourceMover.IsDeactivating())
             {
                 Debug.Log("Releasing Player Control of the Boat.");
 
@@ -42,6 +43,7 @@ public class SteeringWheel : MonoBehaviour, IInteractable
                 if (_sourceMover != null)
                     _sourceMover.CanMove(true);
                 if (BoatController != null)
+                    BoatController.SetSourceMover(null);
                     BoatController.SetPlayerControlled(false);
             }
         }

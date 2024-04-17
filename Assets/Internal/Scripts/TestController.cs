@@ -226,4 +226,24 @@ public class TestController : MonoBehaviour
     {
         _canMove = canMove;
     }
+
+    public bool IsActivating()
+    {
+        return mPlayerControls.Controls.Activate.ReadValue<float>() > 0;
+    }
+    public bool IsDeactivating()
+    {
+        return mPlayerControls.Controls.Deactivate.ReadValue<float>() > 0;
+    }
+
+    public float GetLeftRight()
+    {
+        mMovement = mPlayerControls.Controls.Movement.ReadValue<Vector2>();
+        return mMovement.x;
+    }
+    public float GetForwardBackward()
+    {
+        mMovement = mPlayerControls.Controls.Movement.ReadValue<Vector2>();
+        return mMovement.y;
+    }
 }
