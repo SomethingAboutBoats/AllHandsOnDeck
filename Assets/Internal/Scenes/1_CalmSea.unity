@@ -1606,6 +1606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b977eef7496907478980aecf90ccc8f, type: 3}
   m_Name:
   m_EditorClassIdentifier:
+  mRotationRate: 22.5
 --- !u!1 &646690104
 GameObject:
   m_ObjectHideFlags: 0
@@ -2328,6 +2329,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 8532a36c-73f3-4051-a1cb-4eb07e13bd32
     m_ActionName: Controls/Aim[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 75a1d68b-8011-4e71-ae86-ae38446163a9
+    m_ActionName: "Controls/Activate[/Keyboard/e,/\u0803 EFDB9C27/button4]"
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 59193ebe-4858-41c7-b04c-977f0e3d98b1
+    m_ActionName: "Controls/Deactivate[/Keyboard/f,/\u0803 EFDB9C27/button5]"
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme:
   m_DefaultActionMap: Controls
