@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
+public interface IWindBehavior
+{
+    public void SetWindSpeed(Vector3 WindVect);
+    public Transform GetTransform { get; }
+    public float GetWindYawDeg { get; }
+}
+
 public class WindGenerator : MonoBehaviour
 {
     public float minWindSpeed = 15f;
@@ -27,7 +34,7 @@ public class WindGenerator : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update() { }
+    void Update() { SetAllWindVectors(new(0,0,-25)); }
 
     void DrawNewWindVector()
     {
@@ -35,6 +42,14 @@ public class WindGenerator : MonoBehaviour
         float direction = UnityEngine.Random.Range(0f, 2*math.PI);
         Vector3 windVect = new Vector3(math.cos(direction), 0, math.sin(direction)) * strength;
 
+        foreach (IWindBehavior windAffectedThing in this.m_AllWindAffected)
+        {
+            windAffectedThing.SetWindSpeed(windVect);
+        }
+    }
+
+    void SetAllWindVectors(Vector3 windVect)
+    {
         foreach (IWindBehavior windAffectedThing in this.m_AllWindAffected)
         {
             windAffectedThing.SetWindSpeed(windVect);

@@ -4,9 +4,10 @@ using Unity.Mathematics;
 public class ShipDriver : MonoBehaviour
 {
     public float mMaxSpeedPerSail = 0;
-    public float mAccelRate = 1f;
+    public float mAccelRate = 10f;
 
     SailWind[] mSails;
+    // public Rigidbody mShipBody = null;
     Rigidbody mShipBody = null;
 
     // Start is called before the first frame update
@@ -19,7 +20,7 @@ public class ShipDriver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float absBoatYaw = NormalizeAngle(GetAbsYaw(this.transform));
+        float absBoatYaw = GetAbsYaw(this.transform);
         float absWindAngle = GetAbsWindAngle(absBoatYaw);
 
         float windForce = 0f;
@@ -28,24 +29,22 @@ public class ShipDriver : MonoBehaviour
         {
             windForce += GetForceRatio(sail, absBoatYaw, absWindAngle);
         }
-
-        mShipBody.angularVelocity = new(0f, 0f, 0f);
-        mShipBody.velocity = CalcSpeed(windForce) * -transform.forward;
-        Debug.Log("Ship Speed: " + mShipBody.velocity.magnitude);
+        mShipBody.velocity = CalcSpeed(windForce) * transform.forward;
+        // Debug.Log("Ship Speed: " + math.sqrt((mShipBody.velocity.x * mShipBody.velocity.x) + (mShipBody.velocity.z * mShipBody.velocity.z)));
     }
 
     float CalcSpeed(float forceMult)
     {
         float maxCurrSpeed = mMaxSpeedPerSail * forceMult;
-        float currSpeed = mShipBody.velocity.magnitude;
+        float currSpeed = math.sqrt((mShipBody.velocity.x * mShipBody.velocity.x) + (mShipBody.velocity.z * mShipBody.velocity.z));
 
         if (currSpeed < maxCurrSpeed)
         {
-            return currSpeed + mAccelRate*Time.deltaTime;
+            return currSpeed + (mAccelRate*Time.deltaTime);
         }
         else if (currSpeed > maxCurrSpeed)
         {
-            return currSpeed - mAccelRate*Time.deltaTime;
+            return currSpeed - (mAccelRate*Time.deltaTime);
         }
         else
         {
@@ -67,12 +66,14 @@ public class ShipDriver : MonoBehaviour
     {
         float roll = transform.rotation.eulerAngles.z;
         float pitch = transform.rotation.eulerAngles.x;
-        return (transform.rotation * Quaternion.Euler(-pitch, 0f, -roll)).eulerAngles.y;
+        float yaw = (transform.rotation * Quaternion.Euler(-pitch, 0f, -roll)).eulerAngles.y;
+        return NormalizeAngle(yaw);
     }
 
     // Get Angle of Wind Relative to Boat Heading
-    // 0-180 Wind from Starboard
-    // 180-360 Wind from Port
+    // 0 is full Headwind
+    // + Angle = Wind from Starboard
+    // - Angle = Wind from Port
     private float GetAbsWindAngle(float absBoatYaw)
     {
         if (mSails.Length == 0)
@@ -80,23 +81,35 @@ public class ShipDriver : MonoBehaviour
             return 0f;
         }
 
-        float windYaw = mSails[0].GetWindYawDeg;
+        // Shift wind angle 180, so that 0 is coming over the bow
+        float windYaw = mSails[0].GetWindYawDeg - 180;
         return NormalizeAngle(windYaw - absBoatYaw);
     }
 
     // Get Force Ratio; Increases from optimal sail angle 0 at headwind
     // to optimal sail angle +/- 90 at tailwind.
-    // Don't worry about side of boat, as the wind should move sail to correct side
     private float GetForceRatio(IWindBehavior sail, float absBoatAngle, float absWindAngle)
     {
-        float relativeSailYaw = GetAbsYaw(sail.GetTransform);
-        float sailAngle = math.abs(NormalizeAngle(relativeSailYaw - absBoatAngle));
+        // Shift sail angle 180, so that 0 is pointed straight back
+        float relativeSailYaw = GetAbsYaw(sail.GetTransform) - 180;
+        float sailAngle = NormalizeAngle(relativeSailYaw - absBoatAngle);
 
-        float optimalSailAngle = math.abs(absWindAngle / 2);
+        if (math.abs(sailAngle) > 100 ) { return 0f; }
 
-        Debug.Log("Sail Angle: " + sailAngle + ", Optimal Sail Angle: " + optimalSailAngle);
+        float optimalSailAngle = absWindAngle / 2;
 
-        float angleErrorDeg = sailAngle - optimalSailAngle;
+        // Debug.Log("Sail Angle: " + sailAngle + ", Optimal Sail Angle: " + optimalSailAngle);
+
+        float angleErrorDeg;
+        // Handle edge case where wind can bounce between +/- 180
+        if (math.abs(absWindAngle) > 175)
+        {
+            angleErrorDeg = math.abs(sailAngle) - math.abs(optimalSailAngle);
+        }
+        else
+        {
+            angleErrorDeg = sailAngle - optimalSailAngle;
+        }
 
         float force = math.cos(angleErrorDeg*math.PI/180);
 

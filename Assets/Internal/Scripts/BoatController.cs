@@ -60,7 +60,7 @@ public class BoatController : MonoBehaviour
             // Boat is sailing itself.
             else if (Waypoint != null)
             {
-                Vector3 towardWaypoint = -(Waypoint.transform.position - transform.position);
+                Vector3 towardWaypoint = Waypoint.transform.position - transform.position;
                 Quaternion target = Quaternion.LookRotation(towardWaypoint);
 
                 transform.rotation = Quaternion.Slerp(transform.rotation, target, AutoSteerSpeed * Time.deltaTime);
