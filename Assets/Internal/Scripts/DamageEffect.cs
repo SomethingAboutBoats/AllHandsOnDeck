@@ -27,6 +27,9 @@ public class DamageEffect : MonoBehaviour
     public int MaxHealth = 100;
     public GameObject DecalProjector;
 
+    public AudioSource BoatDamageAudioSource;
+    public List<AudioClip> BoatDamageAudioClips;
+
     protected int _currentHealth;
     protected List<GameObject> _damageDecals = new();
 
@@ -51,6 +54,9 @@ public class DamageEffect : MonoBehaviour
         }
 
         ApplyDamage(damage, contactPoint);
+
+        int clipIndex = Random.Range(0, BoatDamageAudioClips.Count);
+        BoatDamageAudioSource.PlayOneShot(BoatDamageAudioClips[clipIndex]);
     }
 
     public void OnRepair(DamageApplier damage)
