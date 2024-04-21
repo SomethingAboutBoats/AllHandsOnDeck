@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1526.6378, g: 1932.5061, b: 3569.7974, a: 1}
+  m_IndirectSpecularColor: {r: 1530.6671, g: 1939.9338, b: 3591.192, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1432,7 +1432,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 235e2fa092f171548a5e3c995d39dd2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 100
+  MaxHealth: 1000
+  DecalProjector: {fileID: 356758702934445847, guid: c10379bf103fb7b4d982ad563a2d1537,
+    type: 3}
 --- !u!136 &638614636
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -22503,6 +22505,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CannonIsland
       objectReference: {fileID: 0}
+    - target: {fileID: 2667717898497798689, guid: b0deb34421a977841897e7157a3b74b1,
+        type: 3}
+      propertyPath: FireForce
+      value: 800
+      objectReference: {fileID: 0}
     - target: {fileID: 4086246611554541721, guid: b0deb34421a977841897e7157a3b74b1,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -22516,7 +22523,7 @@ PrefabInstance:
     - target: {fileID: 8437672987227153438, guid: b0deb34421a977841897e7157a3b74b1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -51.07
+      value: -26.2
       objectReference: {fileID: 0}
     - target: {fileID: 8437672987227153438, guid: b0deb34421a977841897e7157a3b74b1,
         type: 3}
@@ -22526,7 +22533,7 @@ PrefabInstance:
     - target: {fileID: 8437672987227153438, guid: b0deb34421a977841897e7157a3b74b1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -46.61
+      value: -13.6
       objectReference: {fileID: 0}
     - target: {fileID: 8437672987227153438, guid: b0deb34421a977841897e7157a3b74b1,
         type: 3}
