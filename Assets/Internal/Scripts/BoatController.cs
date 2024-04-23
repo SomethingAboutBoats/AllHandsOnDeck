@@ -28,10 +28,25 @@ public class BoatController : MonoBehaviour
 
     protected Collider WaypointCollider;
 
+    protected static BoatController _instance = null;
+
+    public static BoatController Instance
+    {
+        get => _instance;
+    }
+
     public void Awake()
     {
-        Rigidbody = GetComponent<Rigidbody>();
-        WaypointCollider = Waypoint.GetComponentInParent<Collider>();
+        if (_instance == null)
+        {
+            _instance = this;
+            Rigidbody = GetComponentInChildren<Rigidbody>();
+            WaypointCollider = Waypoint.GetComponentInParent<Collider>();
+        }
+        else if (_instance != this)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     // Update is called once per frame
