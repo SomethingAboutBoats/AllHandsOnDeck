@@ -39,6 +39,7 @@ public class TestController : MonoBehaviour
     {
         mController = GetComponent<CharacterController>();
         mPlayerInput = GetComponent<PlayerInput>();
+        SetSpawnLocation();
     }
 
     // Start is called before the first frame update
@@ -63,6 +64,27 @@ public class TestController : MonoBehaviour
         }
         SetMotionAnimation();
         mLocalPos = this.transform.localPosition;
+    }
+
+    void SetSpawnLocation()
+    {
+        PlayerInputManager[] spawnPoints;
+        Debug.Log(this.transform.parent);
+        if (this.transform.parent != null)
+        {
+            spawnPoints = transform.parent.GetComponentsInChildren<PlayerInputManager>();
+            Debug.Log(spawnPoints);
+            if (spawnPoints.Length > 0)
+            {
+                Vector3 start = this.gameObject.transform.position;
+                Vector3 end = spawnPoints[0].transform.position;
+                mController.Move(end - start);
+            }
+        }
+        else
+        {
+            this.transform.localPosition = new(0f, 0f, 0f);
+        }
     }
 
     private void UpdateToParent()
