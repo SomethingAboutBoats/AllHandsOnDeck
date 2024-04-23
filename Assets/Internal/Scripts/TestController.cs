@@ -24,6 +24,8 @@ public class TestController : MonoBehaviour
 
     private Vector2 mMovement;
     private Vector2 mAim;
+    private bool mActivated;
+    private bool mDeactivated;
     private bool mIsGamepad = false;
     private bool _canMove = true;
 
@@ -36,18 +38,7 @@ public class TestController : MonoBehaviour
     void Awake()
     {
         mController = GetComponent<CharacterController>();
-        mPlayerControls = new PlayerControls();
         mPlayerInput = GetComponent<PlayerInput>();
-    }
-
-    void OnEnable()
-    {
-        mPlayerControls.Enable();
-    }
-
-    void OnDisable()
-    {
-        mPlayerControls.Disable();
     }
 
     // Start is called before the first frame update
@@ -63,7 +54,6 @@ public class TestController : MonoBehaviour
     void FixedUpdate()
     {
         UpdateToParent();
-        HandleInput();
         // ApplyGravity();
         if (_canMove)
         {
@@ -89,12 +79,6 @@ public class TestController : MonoBehaviour
         // this.transform.rotation = Quaternion.Euler(boatRot.x, this.transform.rotation.eulerAngles.y, boatRot.z);
 
         this.transform.localPosition = mLocalPos;
-    }
-
-    private void HandleInput()
-    {
-        mMovement = mPlayerControls.Controls.Movement.ReadValue<Vector2>();
-        mAim = mPlayerControls.Controls.Aim.ReadValue<Vector2>();
     }
 
     private void ApplyGravity()
@@ -229,21 +213,36 @@ public class TestController : MonoBehaviour
 
     public bool IsActivating()
     {
-        return mPlayerControls.Controls.Activate.ReadValue<float>() > 0;
+        return mActivated;
     }
     public bool IsDeactivating()
     {
-        return mPlayerControls.Controls.Deactivate.ReadValue<float>() > 0;
+        return mDeactivated;
     }
 
     public float GetLeftRight()
     {
-        mMovement = mPlayerControls.Controls.Movement.ReadValue<Vector2>();
         return mMovement.x;
     }
     public float GetForwardBackward()
     {
-        mMovement = mPlayerControls.Controls.Movement.ReadValue<Vector2>();
         return mMovement.y;
+    }
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        mMovement = context.ReadValue<Vector2>();
+    }
+    public void OnAim(InputAction.CallbackContext context)
+    {
+        mAim = context.ReadValue<Vector2>();
+    }
+    public void OnActivate(InputAction.CallbackContext context)
+    {
+        mActivated = context.ReadValue<float>() > 0;
+    }
+    public void OnDeactivate(InputAction.CallbackContext context)
+    {
+        mDeactivated = context.ReadValue<float>() > 0;
     }
 }
