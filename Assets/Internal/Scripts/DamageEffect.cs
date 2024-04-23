@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum DamageType
@@ -24,8 +25,13 @@ public abstract class DamageApplier : MonoBehaviour
 public class DamageEffect : MonoBehaviour
 {
     public int MaxHealth = 100;
+    public GameObject DecalProjector;
+
+    public AudioSource BoatDamageAudioSource;
+    public List<AudioClip> BoatDamageAudioClips;
 
     protected int _currentHealth;
+    protected List<GameObject> _damageDecals = new();
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +45,7 @@ public class DamageEffect : MonoBehaviour
     }
 
 
-    public void OnDamage(DamageApplier damage)
+    public void OnDamage(DamageApplier damage, ContactPoint contactPoint)
     {
         if (IsSunk())
         {
@@ -47,30 +53,61 @@ public class DamageEffect : MonoBehaviour
             return;
         }
 
-        ApplyDamage(damage);
+        ApplyDamage(damage, contactPoint);
+
+        int clipIndex = Random.Range(0, BoatDamageAudioClips.Count);
+        BoatDamageAudioSource.PlayOneShot(BoatDamageAudioClips[clipIndex]);
     }
 
-    protected void ApplyDamage(DamageApplier damage)
+    public void OnRepair(DamageApplier damage)
+    {
+        if (IsSunk())
+        {
+            Debug.Log("Already sunk.");
+            return;
+        }
+
+        ApplyRepair(damage);
+    }
+
+    protected void ApplyDamage(DamageApplier damage, ContactPoint contactPoint)
     {
         this._currentHealth -= damage.Damage;
         
         switch (damage.DamageType)
         {
-            // do something
+            case DamageType.Projectile:
+                DrawDecal(contactPoint);
+                break;
             case DamageType.Other:
-            case DamageType.Projectile: 
             case DamageType.Collision:
             default:
                 break;
         }
 
-        Debug.Log($"Current health: {this._currentHealth}");
+        Debug.Log($"Repaired! Current health: {this._currentHealth}");
 
         if (IsSunk())
         {
             // Sink
             Debug.Log("Sunk!");
             Destroy(this.transform.root.gameObject);
+        }
+    }
+
+    protected void ApplyRepair(DamageApplier damage)
+    {
+        this._currentHealth = System.Math.Min(this._currentHealth + damage.Damage, this.MaxHealth);
+        Debug.Log($"Current health: {this._currentHealth}");
+    }
+
+    protected void DrawDecal(ContactPoint contactPoint)
+    {
+        if (contactPoint.otherCollider.transform == this.transform)
+        {
+            var contactPosition = contactPoint.point;
+            GameObject decalProjector = Instantiate(DecalProjector, this.transform.root);
+            decalProjector.transform.position = contactPosition;
         }
     }
 }

@@ -10,7 +10,7 @@ public class Projectile : DamageApplier
 
     protected float _lifetime = 10.0f;
 
-    public void OnStart()
+    public void Start()
     {
         _lifetime = Lifetime;
         _damageType = DamageType.Projectile;
@@ -27,7 +27,7 @@ public class Projectile : DamageApplier
         if (collision.transform.root.gameObject.TryGetComponent<DamageEffect>(out var damageEffect))
         {
             Debug.Log("Handling collision with damageable object!");
-            damageEffect.OnDamage(this);
+            damageEffect.OnDamage(this, collision.GetContact(0));
         }
         else
         {

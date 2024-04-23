@@ -10,6 +10,9 @@ public class ProjectileEmitter : MonoBehaviour
     
     public GameObject Projectile;
 
+    public AudioSource CannonAudioSource;
+    public List<AudioClip> CannonAudioClips;
+
     protected float _fireCountdown = 0.0f;
     protected bool _canFire = true;
 
@@ -62,5 +65,8 @@ public class ProjectileEmitter : MonoBehaviour
         this.transform.rotation = Quaternion.Euler(eulerX, eulerY, 0.0f);
 
         projectile.GetComponent<Rigidbody>().AddForce(this.transform.forward * FireForce);
+
+        int clipIndex = Random.Range(0, CannonAudioClips.Count);
+        CannonAudioSource.PlayOneShot(CannonAudioClips[clipIndex]);
     }
 }
