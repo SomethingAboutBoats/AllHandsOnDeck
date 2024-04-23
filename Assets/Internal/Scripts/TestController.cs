@@ -69,11 +69,9 @@ public class TestController : MonoBehaviour
     void SetSpawnLocation()
     {
         PlayerInputManager[] spawnPoints;
-        Debug.Log(this.transform.parent);
         if (this.transform.parent != null)
         {
             spawnPoints = transform.parent.GetComponentsInChildren<PlayerInputManager>();
-            Debug.Log(spawnPoints);
             if (spawnPoints.Length > 0)
             {
                 Vector3 start = this.gameObject.transform.position;
