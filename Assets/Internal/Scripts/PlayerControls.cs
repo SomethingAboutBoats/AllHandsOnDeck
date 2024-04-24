@@ -233,7 +233,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""down"",
                     ""id"": ""589be97f-db1c-4b10-a4fa-a48dafa45b68"",
-                    ""path"": ""<HID::ࠇ 34885d78ff96>/rz"",
+                    ""path"": ""<HID::঱ EFDB9C27>/rz"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Joystick"",
@@ -244,7 +244,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""down"",
                     ""id"": ""60396311-cde0-4882-bc0c-ba423a7721ac"",
-                    ""path"": ""<HID::ࠁ EFDB9C27>/rz"",
+                    ""path"": ""<HID::঱ EFDB9C27>/rz"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Joystick"",
@@ -255,7 +255,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""right"",
                     ""id"": ""0fe5a9cb-453b-4183-b751-4cb07315e39b"",
-                    ""path"": ""<HID::ࠇ 34885d78ff96>/z"",
+                    ""path"": ""<HID::঱ EFDB9C27>/z"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Joystick"",
@@ -266,7 +266,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""right"",
                     ""id"": ""aaa389a4-aecf-4fc5-88ab-c88eb11b05cc"",
-                    ""path"": ""<HID::ࠁ EFDB9C27>/z"",
+                    ""path"": ""<HID::঱ EFDB9C27>/z"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Joystick"",
@@ -313,7 +313,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Controller"",
+                    ""groups"": ""KeyboardMouse"",
                     ""action"": ""Deactivate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -335,7 +335,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Joystick"",
+                    ""groups"": ""Controller"",
                     ""action"": ""Deactivate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
