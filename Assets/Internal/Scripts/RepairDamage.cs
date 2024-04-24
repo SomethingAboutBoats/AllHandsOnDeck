@@ -27,7 +27,7 @@ public class RepairDamage : DamageApplier, IInteractable
     }
 
     // Start is called before the first frame update
-    void Start() 
+    void Start()
     {
         _damageType = DamageType.Projectile;
     }
@@ -35,7 +35,7 @@ public class RepairDamage : DamageApplier, IInteractable
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (_isInteracting)
+        if (_isInteracting && _sourceMover != null)
         {
            _remainingRepairTime -= Time.fixedDeltaTime;
             Debug.Log($"Remaining repair time: {_remainingRepairTime}.");
@@ -49,7 +49,7 @@ public class RepairDamage : DamageApplier, IInteractable
                 StopInteracting(true);
             }
 
-            if (!Input.GetKey(KeyCode.E))
+            if (!_sourceMover.IsActivating())
             {
                 Debug.Log("Player released the interact button.");
                 StopInteracting(false);

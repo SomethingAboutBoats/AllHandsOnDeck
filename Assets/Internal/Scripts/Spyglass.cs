@@ -38,7 +38,7 @@ public class SpyGlassScript : MonoBehaviour, IInteractable
     {
         if (_isInteracting)
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (_sourceMover != null && _sourceMover.IsDeactivating())
             {
                 Debug.Log("Player stopped looking through spyglass.");
 

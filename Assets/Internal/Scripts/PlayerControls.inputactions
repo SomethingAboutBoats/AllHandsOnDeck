@@ -22,6 +22,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Activate",
+                    "type": "Button",
+                    "id": "75a1d68b-8011-4e71-ae86-ae38446163a9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Deactivate",
+                    "type": "Button",
+                    "id": "59193ebe-4858-41c7-b04c-977f0e3d98b1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -138,7 +156,7 @@
                 {
                     "name": "down",
                     "id": "a802328e-d8f2-4a66-8d25-2b94f0fc26e0",
-                    "path": "<HID::Google LLC Stadia Controller rev. A>/rz",
+                    "path": "<HID::ࠃ EFDB9C27>/rz",
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
@@ -149,7 +167,7 @@
                 {
                     "name": "down",
                     "id": "0bcd2c1c-d32b-47c6-a265-3071133236d7",
-                    "path": "<HID::Google LLC Stadia Controller rev. A>/rz",
+                    "path": "<HID::ࠃ EFDB9C27>/rz",
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
@@ -160,7 +178,7 @@
                 {
                     "name": "right",
                     "id": "e530df6f-fe7c-4268-9721-1e866859710c",
-                    "path": "<HID::Google LLC Stadia Controller rev. A>/z",
+                    "path": "<HID::ࠃ EFDB9C27>/z",
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
@@ -171,7 +189,7 @@
                 {
                     "name": "right",
                     "id": "beeeaf2a-e5cc-4c68-b635-0df119e13430",
-                    "path": "<HID::Google LLC Stadia Controller rev. A>/z",
+                    "path": "<HID::ࠃ EFDB9C27>/z",
                     "interactions": "",
                     "processors": "",
                     "groups": "Joystick",
@@ -233,6 +251,72 @@
                     "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "19258b0f-4b84-477f-8535-015b2a7f1241",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Activate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "657f6acd-19fd-4b47-8fc0-846f0b68c0b0",
+                    "path": "<HID::ࠃ EFDB9C27>/button4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "Activate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "88fd6e37-3994-4ce5-af8f-f933fc46dd1e",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Activate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4022a05d-f0be-4666-b876-378799ee7667",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Deactivate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5f7040fd-98cb-4607-ba3a-681b9d37d317",
+                    "path": "<HID::ࠃ EFDB9C27>/button5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "Deactivate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "347c8a1d-03f8-45b3-8723-abd442ace7cc",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "Deactivate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
