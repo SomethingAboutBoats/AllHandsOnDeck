@@ -22,6 +22,7 @@ public abstract class DamageApplier : MonoBehaviour
     }
 }
 
+[RequireComponent(typeof(ShipDriver))]
 public class DamageEffect : MonoBehaviour
 {
     public int MaxHealth = 100;
@@ -33,10 +34,13 @@ public class DamageEffect : MonoBehaviour
     protected int _currentHealth;
     protected List<GameObject> _damageDecals = new();
 
+    protected ShipDriver mShipDriver;
+
     // Start is called before the first frame update
     void Start()
     {
         _currentHealth = MaxHealth;
+        mShipDriver = GetComponentInChildren<ShipDriver>();
     }
 
     public bool IsSunk()
@@ -73,7 +77,7 @@ public class DamageEffect : MonoBehaviour
     protected void ApplyDamage(DamageApplier damage, ContactPoint contactPoint)
     {
         this._currentHealth -= damage.Damage;
-        
+
         switch (damage.DamageType)
         {
             case DamageType.Projectile:
@@ -91,7 +95,8 @@ public class DamageEffect : MonoBehaviour
         {
             // Sink
             Debug.Log("Sunk!");
-            Destroy(this.transform.root.gameObject);
+            // Destroy(this.transform.root.gameObject);
+            mShipDriver.FinishSailing(true);
         }
     }
 

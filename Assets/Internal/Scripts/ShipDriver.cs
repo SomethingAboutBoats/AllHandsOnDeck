@@ -1,5 +1,6 @@
 using UnityEngine;
 using Unity.Mathematics;
+using UnityEngine.SceneManagement;
 
 public class ShipDriver : MonoBehaviour
 {
@@ -149,11 +150,13 @@ public class ShipDriver : MonoBehaviour
 
         if (sunk)
         {
-
+            SceneInterface.Instance.GameState = GameStates.SUNK;
+            SceneManager.LoadScene(sceneName:"0_IslandMenu");
         }
         else
         {
-
+            SceneInterface.Instance.GameState = GameStates.SURVIVED;
+            SceneManager.LoadScene(sceneName:"0_IslandMenu");
         }
     }
 }
