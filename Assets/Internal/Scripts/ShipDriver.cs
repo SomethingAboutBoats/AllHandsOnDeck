@@ -141,7 +141,7 @@ public class ShipDriver : MonoBehaviour
 
         float optimalSailAngle = absWindAngle / 2;
 
-        // Debug.Log("Sail Angle: " + sailAngle + ", Optimal Sail Angle: " + optimalSailAngle);
+        // Debug.Log("Sail Angle: " + GetCurrentSailAngle() + ", Optimal Sail Angle: " + GetOptimalSailAngle());
 
         float angleErrorDeg;
         // Handle edge case where wind can bounce between +/- 180
@@ -199,6 +199,25 @@ public class ShipDriver : MonoBehaviour
                 SceneInterface.Instance.GameState = GameStates.SURVIVED;
                 SceneManager.LoadScene(sceneName:"0_IslandMenu");
             }
+
+    public float GetOptimalSailAngle()
+    {
+        float absBoatYaw = GetAbsYaw(this.transform);
+        float absWindAngle = GetAbsWindAngle(absBoatYaw);
+        return absWindAngle / 2;
+    }
+
+    public float GetCurrentSailAngle()
+    {
+        if (mSails.Length > 0)
+        {
+            float absBoatYaw = GetAbsYaw(this.transform);
+            float relativeSailYaw = GetAbsYaw(mSails[0].GetTransform) - 180;
+            return NormalizeAngle(relativeSailYaw - absBoatYaw);
+        }
+        else
+        {
+            return float.NaN;
         }
     }
 }
