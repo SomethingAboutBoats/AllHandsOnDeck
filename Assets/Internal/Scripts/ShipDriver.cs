@@ -12,10 +12,19 @@ public class ShipDriver : MonoBehaviour
     private Rigidbody mShipBody = null;
 
     private bool mCanSail = false;
+    private bool mIsSinking = false;
+    private float mSinkDegrees = 0;
+    public float mSinkRollTime = 7; // Take denominator seconds to sink
+
+    private Camera mMainCamera;
+    private Vector3 mCameraSinkPosition;
+    private Quaternion mCameraSinkRotation;
+    private Camera mSinkCamera;
 
     // Start is called before the first frame update
     void Start()
     {
+        mMainCamera = Camera.main;
         mSails = GetComponentsInChildren<SailWind>();
         mShipBody = this.GetComponent<Rigidbody>();
     }
@@ -23,6 +32,29 @@ public class ShipDriver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (mIsSinking)
+        {
+            if (mSinkDegrees >= 180)
+            {
+                Destroy(this.transform.root.gameObject);
+                if (SceneInterface.Instance != null)
+                {
+                    SceneInterface.Instance.GameState = GameStates.SUNK;
+                    SceneManager.LoadScene(sceneName:"0_IslandMenu");
+                }
+            }
+            else
+            {
+                if (mMainCamera != null)
+                {
+                    mMainCamera.transform.SetPositionAndRotation(mCameraSinkPosition, mCameraSinkRotation);
+                }
+                mSinkDegrees += (180/mSinkRollTime) * Time.deltaTime;
+                Vector3 currentRotations = this.transform.rotation.eulerAngles;
+                this.transform.rotation = Quaternion.Euler(currentRotations.x, currentRotations.y, currentRotations.z + mSinkDegrees);
+            }
+        }
 
         if (!mCanSail)
         {
@@ -150,13 +182,23 @@ public class ShipDriver : MonoBehaviour
 
         if (sunk)
         {
-            SceneInterface.Instance.GameState = GameStates.SUNK;
-            SceneManager.LoadScene(sceneName:"0_IslandMenu");
+            mIsSinking = true;
+            if (mMainCamera != null)
+            {
+                mSinkCamera = Instantiate(mMainCamera);
+                mSinkCamera.transform.position = mMainCamera.transform.position;
+                mSinkCamera.transform.rotation = mMainCamera.transform.rotation;
+                mMainCamera.enabled = false;
+                mSinkCamera.enabled = true;
+            }
         }
         else
         {
-            SceneInterface.Instance.GameState = GameStates.SURVIVED;
-            SceneManager.LoadScene(sceneName:"0_IslandMenu");
+            if (SceneInterface.Instance != null)
+            {
+                SceneInterface.Instance.GameState = GameStates.SURVIVED;
+                SceneManager.LoadScene(sceneName:"0_IslandMenu");
+            }
         }
     }
 }
