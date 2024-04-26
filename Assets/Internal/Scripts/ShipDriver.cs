@@ -6,9 +6,11 @@ public class ShipDriver : MonoBehaviour
     public float mMaxSpeedPerSail = 0;
     public float mAccelRate = 10f;
 
-    SailWind[] mSails;
+    private SailWind[] mSails;
     // public Rigidbody mShipBody = null;
-    Rigidbody mShipBody = null;
+    private Rigidbody mShipBody = null;
+
+    private bool mCanSail = false;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +22,14 @@ public class ShipDriver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (!mCanSail)
+        {
+            mShipBody.velocity = new(0f, 0f, 0f);
+            mShipBody.angularVelocity = new(0f, 0f, 0f);
+            return;
+        }
+
         float absBoatYaw = GetAbsYaw(this.transform);
         float absWindAngle = GetAbsWindAngle(absBoatYaw);
 
@@ -120,6 +130,30 @@ public class ShipDriver : MonoBehaviour
         else
         {
             return 0f;
+        }
+    }
+
+    public bool IsSailing()
+    {
+        return mCanSail;
+    }
+
+    public void EnableSailing()
+    {
+        this.mCanSail = true;
+    }
+
+    public void FinishSailing(bool sunk)
+    {
+        this.mCanSail = false;
+
+        if (sunk)
+        {
+
+        }
+        else
+        {
+
         }
     }
 }

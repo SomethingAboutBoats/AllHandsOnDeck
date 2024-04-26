@@ -12,6 +12,9 @@ public class MastRotation : MonoBehaviour, IInteractable
     private float mMaxSailAngle = 90f;
     public float mRotationRate = 22.5f;
 
+    private bool mNotStarted = true;
+    public ShipDriver mShip;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +33,12 @@ public class MastRotation : MonoBehaviour, IInteractable
                 _isInteracting = false;
                 _sourceMover.CanMove(true);
                 return;
+            }
+
+            if (mShip != null && mNotStarted)
+            {
+                mNotStarted = false;
+                mShip.EnableSailing();
             }
 
             float rotateAngle = mRotationRate * Time.deltaTime;

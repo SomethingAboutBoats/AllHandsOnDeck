@@ -12,6 +12,7 @@ public enum TurnDirection
 }
 
 [RequireComponent(typeof(BuoyancyEffects))]
+[RequireComponent(typeof(ShipDriver))]
 public class BoatController : MonoBehaviour
 {
     public Waypoint Waypoint;
@@ -21,10 +22,10 @@ public class BoatController : MonoBehaviour
     public float AutoSteerSpeed = 0.2f;
 
     protected Rigidbody Rigidbody;
+    protected ShipDriver mShipDriver;
     protected Quaternion StartRotation;
     protected float Steering = 0f;
 
-    protected bool IsSailing = true;
     protected bool IsPlayerControlled = false;
     private TestController _sourceMover;
 
@@ -43,6 +44,7 @@ public class BoatController : MonoBehaviour
         {
             _instance = this;
             Rigidbody = GetComponentInChildren<Rigidbody>();
+            mShipDriver = GetComponentInChildren<ShipDriver>();
             WaypointCollider = Waypoint.GetComponentInParent<Collider>();
         }
         else if (_instance != this)
@@ -54,7 +56,7 @@ public class BoatController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (IsSailing)
+        if (mShipDriver.IsSailing())
         {
             if (IsPlayerControlled && _sourceMover != null)
             {
@@ -101,7 +103,7 @@ public class BoatController : MonoBehaviour
             if (Waypoint.IsDestination)
             {
                 Rigidbody.velocity = Vector3.zero;
-                IsSailing= false;
+                mShipDriver.FinishSailing(false);
             }
             else
             {
