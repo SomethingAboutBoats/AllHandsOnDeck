@@ -7,10 +7,22 @@ using UnityEngine;
 public class DialogueBase : ScriptableObject
 {
     [SerializeField] [TextArea] private string[] mDialogue;
+    [SerializeField] private DialogueBase mNextSuccessDialogue;
+    [SerializeField] private DialogueBase mNextFailureDialogue;
     private int mDialoguePointer = 0;
     public string[] Dialogue
     {
         get { return mDialogue; }
+    }
+
+    public DialogueBase NextSuccessDialogue
+    {
+        get { return mNextSuccessDialogue; }
+    }
+
+    public DialogueBase NextFailureDialogue
+    {
+        get { return mNextFailureDialogue; }
     }
 
     public Tuple<string, string> GetNextCallResponse()

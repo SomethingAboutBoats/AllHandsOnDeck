@@ -31,3 +31,7 @@ MonoBehaviour:
   - Oh is that all?
   - Fair winds and following seas!
   - '**SET SAIL**'
+  mNextSuccessDialogue: {fileID: 11400000, guid: 2236b53fb659a234a859bd5f5580e14b,
+    type: 2}
+  mNextFailureDialogue: {fileID: 11400000, guid: f72c466ebf9aee147bb1f555d4a10581,
+    type: 2}

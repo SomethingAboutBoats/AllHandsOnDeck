@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d664a15109277644cab5fa88830ef3a2, type: 3}
+  m_Name: FirstFailureDialogue
+  m_EditorClassIdentifier: 
+  mDialogue:
+  - Hello there!
+  - I'm alive?
+  - Well you washed back up here. I pulled you out of the sea, and you've been out
+    of it a while. It's real dangerous out there. Best to stay here on the island.
+  - But I need out!
+  - Well you're welcome to try again, but I'm telling you, there's no escape.
+  - I'll make it!
+  - Well watch out this time. Maybe take a lesson from last time and avoid those
+    cannons. Anyway, the ship drifted back and I got her all fixed up. Fair winds
+    and following seas!
+  - '**SET SAIL**'
+  mNextSuccessDialogue: {fileID: 11400000, guid: 2236b53fb659a234a859bd5f5580e14b,
+    type: 2}
+  mNextFailureDialogue: {fileID: 11400000}
