@@ -924,7 +924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 235e2fa092f171548a5e3c995d39dd2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 1000
+  MaxHealth: 100
   DecalProjector: {fileID: 356758702934445847, guid: c10379bf103fb7b4d982ad563a2d1537,
     type: 3}
   BoatDamageAudioSource: {fileID: 575687995}
@@ -2526,16 +2526,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mShip: {fileID: 575687985}
-  mObject1: {fileID: 2639227829491467149, guid: abd909cce401004438856c00c7914f56,
+  mObject1: {fileID: 2639227829491467149, guid: 90ae3d3224f24464eb1c933179529438,
     type: 3}
-  mObject2: {fileID: 672909696122832361, guid: 19f67bc314c270544ab73106708112e0, type: 3}
-  mObject3: {fileID: 8062951018333033697, guid: c8409111118b1504f8e081160a4ed727,
+  mObject2: {fileID: 672909696122832361, guid: 5fa7afa25b0f83345bc3eeaad4af454a, type: 3}
+  mObject3: {fileID: 8062951018333033697, guid: efdf4e12062d5644a94c3d63be2b6310,
+    type: 3}
+  mEnemyObject: {fileID: 1552404803557644247, guid: b0deb34421a977841897e7157a3b74b1,
     type: 3}
   mMinTimeToHazard: 5
-  mMaxTimeToHazard: 20
+  mMaxTimeToHazard: 10
   mBoatWidthDraw: 10
-  mMinScale: 2
-  mMaxScale: 5
+  mMinScale: 3
+  mMaxScale: 6
   targetSurface: {fileID: 548857701}
 --- !u!1 &1552528429
 GameObject:
@@ -4403,5 +4405,3 @@ SceneRoots:
   - {fileID: 1547883169}
   - {fileID: 1132122321}
   - {fileID: 181935522}
-  - {fileID: 5509245947319789283}
-  - {fileID: 2022718660}
