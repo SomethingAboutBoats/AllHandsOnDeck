@@ -7,10 +7,13 @@ public class MastRotation : MonoBehaviour, IInteractable
 {
     private bool _isInteracting = false;
     private TestController _sourceMover;
+    private Interactor _interactor;
 
     private float mMinSailAngle = -90f;
     private float mMaxSailAngle = 90f;
     public float mRotationRate = 22.5f;
+
+    public bool IsInteracting => _isInteracting;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +31,7 @@ public class MastRotation : MonoBehaviour, IInteractable
                 Debug.Log("Releasing Player Control of the Sail.");
 
                 _isInteracting = false;
+                _interactor.OnInteractComplete(this);
                 _sourceMover.CanMove(true);
                 return;
             }
@@ -53,6 +57,7 @@ public class MastRotation : MonoBehaviour, IInteractable
                     Debug.Log("Giving Player Control of the Sail.");
 
                     _isInteracting = true;
+                    _interactor = interactor;
                     _sourceMover.CanMove(false);
                 }
             }

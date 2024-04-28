@@ -2,13 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RepairDamage : DamageApplier, IInteractable
+public class RepairDamage : DamageApplier, IPercentCompletion
 {
     public float RepairTime = 5f;
+
+    public AudioSource RepairAudioSource;
+    public List<AudioClip> RepairAudioClips;
 
     private bool _isInteracting = false;
     private float _remainingRepairTime = 5f;
     private TestController _sourceMover;
+    private Interactor _interactor;
+
+    public float PercentCompleted => 1f - (_remainingRepairTime / RepairTime);
+
+    public bool IsInteracting => _isInteracting;
 
     public void OnInteract(Interactor interactor)
     {
@@ -19,8 +27,12 @@ public class RepairDamage : DamageApplier, IInteractable
                 if (interactor.gameObject.TryGetComponent<TestController>(out _sourceMover))
                 {
                     _isInteracting = true;
+                    _interactor = interactor;
                     _sourceMover.CanMove(false);
                     _remainingRepairTime = RepairTime;
+
+                    int clipIndex = Random.Range(0, RepairAudioClips.Count);
+                    RepairAudioSource.PlayOneShot(RepairAudioClips[clipIndex]);
                 }
             }
         }
@@ -60,8 +72,13 @@ public class RepairDamage : DamageApplier, IInteractable
     protected void StopInteracting(bool destroy)
     {
         _isInteracting = false;
+        if (_interactor != null)
+            _interactor.OnInteractComplete(this);
         if (_sourceMover != null)
             _sourceMover.CanMove(true);
+
+        if (RepairAudioSource.isPlaying)
+            RepairAudioSource.Stop();
 
         if (destroy)
         {
