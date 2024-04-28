@@ -8,6 +8,9 @@ public class SpyGlassScript : MonoBehaviour, IInteractable
 
     private bool _isInteracting = false;
     private TestController _sourceMover;
+    private Interactor _interactor;
+
+    public bool IsInteracting => _isInteracting;
 
     public void OnInteract(Interactor interactor)
     {
@@ -20,6 +23,7 @@ public class SpyGlassScript : MonoBehaviour, IInteractable
                     Debug.Log("Player is looking through the spyglass.");
 
                     _isInteracting = true;
+                    _interactor = interactor;
                     _sourceMover.CanMove(false);
                     SpyglassCamera.enabled = true;
                 }
@@ -43,6 +47,8 @@ public class SpyGlassScript : MonoBehaviour, IInteractable
                 Debug.Log("Player stopped looking through spyglass.");
 
                 _isInteracting = false;
+                if (_interactor != null)
+                    _interactor.OnInteractComplete(this);
                 if (_sourceMover != null)
                     _sourceMover.CanMove(true);
                 if (SpyglassCamera != null)
