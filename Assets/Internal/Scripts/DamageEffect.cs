@@ -85,8 +85,6 @@ public class DamageEffect : MonoBehaviour
                 break;
         }
 
-        Debug.Log($"Repaired! Current health: {this._currentHealth}");
-
         if (IsSunk())
         {
             // Sink

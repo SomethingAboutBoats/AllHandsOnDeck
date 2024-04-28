@@ -9,6 +9,7 @@ public class HazardGenerator : MonoBehaviour
     public GameObject mObject1;
     public GameObject mObject2;
     public GameObject mObject3;
+    public GameObject mEnemyObject;
     public float mMinTimeToHazard = 5f;
     public float mMaxTimeToHazard = 20f;
     public float mBoatWidthDraw = 10f;
@@ -47,17 +48,31 @@ public class HazardGenerator : MonoBehaviour
         float shipSpeed = Mathf.Sqrt(mShip.velocity.x * mShip.velocity.x + mShip.velocity.z* mShip.velocity.z);
         if (shipSpeed < 1) return;
 
+        bool isEnemy = Random.value >= 0.5f;
+
+        float offsetM;
+        float scale;
+
         // Draw a distance away from the ship
         float rangeSec = Random.Range(mMinTimeToHazard, mMaxTimeToHazard);
 
-        // Draw an offset from center of ship
-        float offsetM = Random.Range(-mBoatWidthDraw, mBoatWidthDraw);
+        if (isEnemy)
+        {
+            float offsetSign = Random.Range(-1f, 1f) >= 0 ? 1f : -1f;
+            offsetM = Random.Range(3f, 6f) * mBoatWidthDraw * offsetSign;
+            scale = 1f;
+        }
+        else
+        {
+            // Draw an offset from center of ship
+            offsetM = Random.Range(-mBoatWidthDraw, mBoatWidthDraw);
 
-        // Draw a scale value for the hazard
-        float scale = Random.Range(mMinScale, mMaxScale);
+            // Draw a scale value for the hazard
+            scale = Random.Range(mMinScale, mMaxScale);
+        }
 
         // Draw a random object 1-3
-        GameObject objectToSpawn = GetGameObject(Random.Range(0, 2+1));
+        GameObject objectToSpawn = GetGameObject(isEnemy);
 
         // Instantiate new object
         Vector3 shipPos = mShip.transform.position;
@@ -68,7 +83,11 @@ public class HazardGenerator : MonoBehaviour
         searchParameters.targetPosition = objectPosition;
         searchParameters.error = 0.01f;
         searchParameters.maxIterations = 8;
-        if (targetSurface.FindWaterSurfaceHeight(searchParameters, out searchResult))
+        if (isEnemy)
+        {
+            objectPosition.y = 0;
+        }
+        else if (targetSurface.FindWaterSurfaceHeight(searchParameters, out searchResult))
         {
             objectPosition.y = Mathf.Min(searchResult.height, objectPosition.y);
         }
@@ -78,7 +97,19 @@ public class HazardGenerator : MonoBehaviour
         mLastObject.transform.localScale *= scale;
     }
 
-    GameObject GetGameObject(int draw)
+    GameObject GetGameObject(bool isEnemy)
+    {
+        if (isEnemy)
+        {
+            return GetEnemyObject();
+        } 
+        else
+        {
+            return GetObstacleObject(Random.Range(0, 3));
+        }
+    }
+
+    GameObject GetObstacleObject(int draw)
     {
         return draw switch
         {
@@ -87,5 +118,11 @@ public class HazardGenerator : MonoBehaviour
             2 => mObject3,
             _ => mObject3,
         };
+    }
+
+    GameObject GetEnemyObject()
+    {
+        Debug.Log("Spawning an enemy!");
+        return mEnemyObject;
     }
 }
