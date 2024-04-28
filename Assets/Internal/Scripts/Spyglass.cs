@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpyGlassScript : MonoBehaviour, IInteractable
+public class SpyGlassScript : IInteractable
 {
     public Camera SpyglassCamera;
 
-    private bool _isInteracting = false;
     private TestController _sourceMover;
     private Interactor _interactor;
 
-    public bool IsInteracting => _isInteracting;
-
-    public void OnInteract(Interactor interactor)
+    public override void OnInteract(Interactor interactor)
     {
         if (!_isInteracting)
         {
@@ -32,8 +29,9 @@ public class SpyGlassScript : MonoBehaviour, IInteractable
     }
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
+        base.Start();
         SpyglassCamera.enabled = false;
     }
 

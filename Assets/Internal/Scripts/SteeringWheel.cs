@@ -4,17 +4,15 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class SteeringWheel : MonoBehaviour, IInteractable
+public class SteeringWheel : IInteractable
 {
     public BoatController BoatController;
 
-    private bool _isInteracting = false;
     private TestController _sourceMover;
     private Interactor _interactor;
 
-    public bool IsInteracting => _isInteracting;
 
-    public void OnInteract(Interactor interactor)
+    public override void OnInteract(Interactor interactor)
     {
         Debug.Log("Interacting");
         if (!_isInteracting)
