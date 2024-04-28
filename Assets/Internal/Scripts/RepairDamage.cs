@@ -2,23 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RepairDamage : DamageApplier, IPercentCompletion
+public class RepairDamageApplier : DamageApplier
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        _damageType = DamageType.Projectile;
+    }
+}
+
+public class RepairDamage : IPercentCompletion
 {
     public float RepairTime = 5f;
 
     public AudioSource RepairAudioSource;
     public List<AudioClip> RepairAudioClips;
 
-    private bool _isInteracting = false;
     private float _remainingRepairTime = 5f;
     private TestController _sourceMover;
     private Interactor _interactor;
 
-    public float PercentCompleted => 1f - (_remainingRepairTime / RepairTime);
+    private RepairDamageApplier _damageApplier;
 
-    public bool IsInteracting => _isInteracting;
+    public override float PercentCompleted => 1f - (_remainingRepairTime / RepairTime);
 
-    public void OnInteract(Interactor interactor)
+    public override void OnInteract(Interactor interactor)
     {
         if (!_isInteracting)
         {
@@ -39,14 +47,16 @@ public class RepairDamage : DamageApplier, IPercentCompletion
     }
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
-        _damageType = DamageType.Projectile;
+        base.Start();
+        _damageApplier = GetComponent<RepairDamageApplier>();
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    public override void FixedUpdate()
     {
+        base.FixedUpdate();
         if (_isInteracting && _sourceMover != null)
         {
            _remainingRepairTime -= Time.fixedDeltaTime;
@@ -56,7 +66,7 @@ public class RepairDamage : DamageApplier, IPercentCompletion
             {
                 if (BoatController.Instance.gameObject.TryGetComponent<DamageEffect>(out var damageEffect))
                 {
-                    damageEffect.OnRepair(this);
+                    damageEffect.OnRepair(_damageApplier);
                 }
                 StopInteracting(true);
             }

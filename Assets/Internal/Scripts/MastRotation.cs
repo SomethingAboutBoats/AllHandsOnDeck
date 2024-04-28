@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class MastRotation : MonoBehaviour, IInteractable
+public class MastRotation : IInteractable
 {
-    private bool _isInteracting = false;
     private TestController _sourceMover;
     private Interactor _interactor;
 
@@ -13,13 +12,6 @@ public class MastRotation : MonoBehaviour, IInteractable
     private float mMaxSailAngle = 90f;
     public float mRotationRate = 22.5f;
 
-    public bool IsInteracting => _isInteracting;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -46,7 +38,7 @@ public class MastRotation : MonoBehaviour, IInteractable
         }
     }
 
-    public void OnInteract(Interactor interactor)
+    public override void OnInteract(Interactor interactor)
     {
         if (!_isInteracting)
         {

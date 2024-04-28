@@ -1,4 +1,4 @@
-﻿public interface IPercentCompletion : IInteractable
+﻿public abstract class IPercentCompletion : IInteractable
 { 
-    public float PercentCompleted { get; }
+    public abstract float PercentCompleted { get; }
 }
