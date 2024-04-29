@@ -18,6 +18,9 @@ public class SceneInterface : MonoBehaviour
     [SerializeField] private DialogueBase mNextSuccessDialogue = null;
     [SerializeField] private DialogueBase mNextFailureDialogue = null;
 
+    private int mHatStartIdx = int.MinValue;
+    private int mHatCount = 0;
+
     private void Awake()
     {
         if (Instance != null)
@@ -48,4 +51,15 @@ public class SceneInterface : MonoBehaviour
         set { mNextFailureDialogue = value; }
     }
 
+    public int HatStartIdx
+    {
+        get { return mHatStartIdx; }
+        set { mHatStartIdx = value; }
+    }
+
+    public int HatCount
+    {
+        get { return mHatCount; }
+        set { mHatCount = value; }
+    }
 }
