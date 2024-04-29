@@ -199,6 +199,8 @@ public class ShipDriver : MonoBehaviour
                 SceneInterface.Instance.GameState = GameStates.SURVIVED;
                 SceneManager.LoadScene(sceneName:"0_IslandMenu");
             }
+        }
+    }
 
     public float GetOptimalSailAngle()
     {
