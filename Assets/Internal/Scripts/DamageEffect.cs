@@ -44,6 +44,10 @@ public class DamageEffect : MonoBehaviour
         return _currentHealth <= 0;
     }
 
+    public int GetCurrentHealth()
+    {
+        return _currentHealth;
+    }
 
     public void OnDamage(DamageApplier damage, ContactPoint contactPoint)
     {
