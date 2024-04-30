@@ -19,7 +19,7 @@ public abstract class IInteractable : MonoBehaviour
     public Image ActiveIndicator;
     public RectTransform ActiveTransform;
 
-
+    protected bool _shouldIndicate = true;
     protected bool _isInteracting;
 
     private bool _isIndicating = false;
@@ -33,10 +33,10 @@ public abstract class IInteractable : MonoBehaviour
 
     public virtual void Start()
     {
-        if (InactiveIndicator != null )
+        if (InactiveIndicator != null)
             InactiveIndicator.enabled = false;
        
-        if (ActiveIndicator != null )
+        if (ActiveIndicator != null)
             ActiveIndicator.enabled = false;
 
         if (InactiveTransform != null)
@@ -62,16 +62,19 @@ public abstract class IInteractable : MonoBehaviour
 
     protected void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent(out Interactor _))
+        if (_shouldIndicate)
         {
-            Debug.Log("Entered the trigger volume!");
-
-            _triggerCount++;
-
-            if (!_isIndicating)
+            if (other.gameObject.TryGetComponent(out Interactor _))
             {
-                _isIndicating = true;
-                InactiveIndicator.enabled = true;
+                Debug.Log("Entered the trigger volume!");
+
+                _triggerCount++;
+
+                if (!_isIndicating)
+                {
+                    _isIndicating = true;
+                    InactiveIndicator.enabled = true;
+                }
             }
         }
     }
@@ -112,7 +115,7 @@ public abstract class IInteractable : MonoBehaviour
         {
             _isActive = false;
             ActiveIndicator.enabled = false;
-            InactiveIndicator.enabled = _isIndicating; ;
+            InactiveIndicator.enabled = _isIndicating;
         }
     }
 }
