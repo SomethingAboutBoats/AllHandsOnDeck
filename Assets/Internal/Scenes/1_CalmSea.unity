@@ -986,6 +986,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a03e8fca954dbd44fa7ad6b3bc41d4de,
         type: 3}
       insertIndex: -1
+      addedObject: {fileID: 49869928}
+    - targetCorrespondingSourceObject: {fileID: 2720106028636569664, guid: a03e8fca954dbd44fa7ad6b3bc41d4de,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 571942119}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a03e8fca954dbd44fa7ad6b3bc41d4de,
+        type: 3}
+      insertIndex: -1
       addedObject: {fileID: 575687977}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a03e8fca954dbd44fa7ad6b3bc41d4de,
         type: 3}
@@ -1023,6 +1032,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 638614640}
+    - targetCorrespondingSourceObject: {fileID: -4708906425547525126, guid: a03e8fca954dbd44fa7ad6b3bc41d4de,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 638614643}
     - targetCorrespondingSourceObject: {fileID: 2230373055573226935, guid: a03e8fca954dbd44fa7ad6b3bc41d4de,
         type: 3}
       insertIndex: -1
