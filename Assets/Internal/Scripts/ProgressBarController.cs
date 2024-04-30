@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class ProgressBarController : MonoBehaviour
 {
-    public GameObject boat; // Sailboat icon; set in Unity
+    public GameObject boat; // Player boat object; set in Unity
     public GameObject endingWaypoint; // Final waypoint of boat's path; set in Unity
     protected float totalDistance; // Total distance from boat's starting position to final waypoint
     protected float currentDistance; // Current distance from boat's position to final waypoint
