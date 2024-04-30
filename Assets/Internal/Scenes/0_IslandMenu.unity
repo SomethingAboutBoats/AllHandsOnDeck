@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 1525.6622, g: 1930.4846, b: 3564.7817, a: 1}
+  m_IndirectSpecularColor: {r: 1526.0656, g: 1930.2424, b: 3561.7544, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 263636389}
   - component: {fileID: 263636388}
+  - component: {fileID: 263636390}
   m_Layer: 0
   m_Name: SceneInterface
   m_TagString: Untagged
@@ -152,6 +153,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df6820470e4e8b24d82b36a46fe6a1cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mGameState: 0
+  mNextSuccessDialogue: {fileID: 0}
+  mNextFailureDialogue: {fileID: 0}
 --- !u!4 &263636389
 Transform:
   m_ObjectHideFlags: 0
@@ -167,6 +171,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &263636390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263636387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca9691954329d954d8b7e845b7418fa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mWaveSound:
+    SoundID: Waves
+    clip: {fileID: 8300000, guid: 6fe7dfca6e21b78478958954aa952a3f, type: 3}
+    source: {fileID: 0}
+  mSailingSong:
+    SoundID: SailingSong
+    clip: {fileID: 8300000, guid: 46df9b98a772d1b4486106d0274b820b, type: 3}
+    source: {fileID: 0}
+  mIslandSong:
+    SoundID: IslandSong
+    clip: {fileID: 8300000, guid: 997fdc1aba49d344e854b976ab8ed28c, type: 3}
+    source: {fileID: 0}
 --- !u!1 &326719882
 GameObject:
   m_ObjectHideFlags: 0
@@ -850,8 +878,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.2999878}
-  m_SizeDelta: {x: 0, y: -0.6}
+  m_AnchoredPosition: {x: -0.40997314, y: -0.2999878}
+  m_SizeDelta: {x: -0.820017, y: -0.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &950784730
 MonoBehaviour:
