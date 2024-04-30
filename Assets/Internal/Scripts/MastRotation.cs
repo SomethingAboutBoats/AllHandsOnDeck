@@ -14,13 +14,6 @@ public class MastRotation : IInteractable
 
     private bool mNotStarted = true;
     public ShipDriver mShip;
-    public bool IsInteracting => _isInteracting;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
