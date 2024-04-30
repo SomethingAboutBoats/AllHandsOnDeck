@@ -100,8 +100,14 @@ public class DamageEffect : MonoBehaviour
 
     protected void ApplyRepair(DamageApplier damage)
     {
-        this._currentHealth = System.Math.Min(this._currentHealth + damage.Damage, this.MaxHealth);
-        Debug.Log($"Current health: {this._currentHealth}");
+        try
+        {
+            this._currentHealth = System.Math.Min(this._currentHealth + damage.Damage, this.MaxHealth);
+            Debug.Log($"Current health: {this._currentHealth}");
+        } catch 
+        {
+            Debug.Log("huuuh??");
+        }
     }
 
     protected void DrawDecal(ContactPoint contactPoint)

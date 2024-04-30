@@ -29,14 +29,14 @@ public class InteractionBar : MonoBehaviour
         _greenSize.x = 0;
         _greenSize.y = InteractionBarSize.y;
 
-        _positionOffset = new Vector3(InteractionBarSize.x/2f, InteractionBarSize.y * 2, 0);
+        _positionOffset = new Vector3(InteractionBarSize.x/2f, InteractionBarSize.y * 4, 0);
 
         RedImage.enabled = false;
         GreenImage.enabled = false;
         RedRectTransform.sizeDelta = this.InteractionBarSize;
     }
 
-    public void LateUpdate()
+    public void FixedUpdate()
     {
         if (TargetObject != null && RedRectTransform != null && GreenRectTransform != null && _percentCompletion != null)
         {

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RepairDamageApplier : DamageApplier
@@ -50,7 +51,8 @@ public class RepairDamage : IPercentCompletion
     public override void Start()
     {
         base.Start();
-        _damageApplier = GetComponent<RepairDamageApplier>();
+        this._shouldIndicate = false;
+        _damageApplier = this.AddComponent<RepairDamageApplier>();
     }
 
     // Update is called once per frame
@@ -60,7 +62,7 @@ public class RepairDamage : IPercentCompletion
         if (_isInteracting && _sourceMover != null)
         {
            _remainingRepairTime -= Time.fixedDeltaTime;
-            Debug.Log($"Remaining repair time: {_remainingRepairTime}.");
+           Debug.Log($"Remaining repair time: {_remainingRepairTime}.");
 
             if (_remainingRepairTime <= 0)
             {
