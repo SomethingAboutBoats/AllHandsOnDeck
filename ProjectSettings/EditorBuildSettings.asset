@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Internal/Scenes/0_IslandMenu.unity
+    guid: 967cdaaf1eabf584b9303bd0767bca25
+  - enabled: 1
     path: Assets/Internal/Scenes/1_CalmSea.unity
-    guid: 8124e5870f4fd4c779e7a5f994e84ad1
+    guid: 699881c6cad57ee47b3bcfd5c1d24a44
   m_configObjects: {}
