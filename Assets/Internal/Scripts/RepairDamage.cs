@@ -9,6 +9,7 @@ public class RepairDamageApplier : DamageApplier
     void Start()
     {
         _damageType = DamageType.Projectile;
+        Damage = 20;
     }
 }
 
