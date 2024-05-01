@@ -36,6 +36,8 @@ public class DamageEffect : MonoBehaviour
 
     protected ShipDriver mShipDriver;
 
+    private float mMinDamageY = 0.1f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -108,7 +110,7 @@ public class DamageEffect : MonoBehaviour
         {
             this._currentHealth = System.Math.Min(this._currentHealth + damage.Damage, this.MaxHealth);
             Debug.Log($"Current health: {this._currentHealth}");
-        } catch 
+        } catch
         {
             Debug.Log("huuuh??");
         }
@@ -120,6 +122,10 @@ public class DamageEffect : MonoBehaviour
         {
             var contactPosition = contactPoint.point;
             GameObject decalProjector = Instantiate(DecalProjector, this.transform.root);
+            if (contactPosition.y < mMinDamageY)
+            {
+                contactPosition = new(contactPoint.point.x, mMinDamageY, contactPoint.point.z);
+            }
             decalProjector.transform.position = contactPosition;
         }
     }
