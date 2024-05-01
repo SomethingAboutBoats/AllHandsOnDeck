@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class InteractionBar : MonoBehaviour
@@ -29,7 +25,7 @@ public class InteractionBar : MonoBehaviour
         _greenSize.x = 0;
         _greenSize.y = InteractionBarSize.y;
 
-        _positionOffset = new Vector3(InteractionBarSize.x/2f, InteractionBarSize.y * 2, 0);
+        _positionOffset = new Vector3(InteractionBarSize.x / 2f, InteractionBarSize.y * 2, 0);
 
         RedImage.enabled = false;
         GreenImage.enabled = false;
@@ -42,7 +38,7 @@ public class InteractionBar : MonoBehaviour
         {
             if (_percentCompletion.IsInteracting)
                 DrawUpdate();
-            else 
+            else
                 NoDraw();
         }
     }

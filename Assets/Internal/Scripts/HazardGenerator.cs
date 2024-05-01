@@ -15,11 +15,19 @@ public class HazardGenerator : MonoBehaviour
     public float mBoatWidthDraw = 10f;
     public float mMinScale = 2f;
     public float mMaxScale = 5f;
+    public float mMinLeakInterval = 10f;
+    public float mLeakTimeModifier = 10f;
 
     GameObject mLastObject;
 
     float lastSpawnTime = 0f;
     float timer = 0f;
+
+    float estimatedFPS = 30f;
+    float leakCountDown = 10f;
+    bool canLeak = false;
+
+    DamageEffect shipDamageEffect;
 
     public WaterSurface targetSurface = null;
     WaterSearchParameters searchParameters = new WaterSearchParameters();
@@ -28,6 +36,8 @@ public class HazardGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        leakCountDown = mMinLeakInterval;
+        shipDamageEffect = mShip.gameObject.GetComponent<DamageEffect>();
     }
 
     // Update is called once per frame
@@ -39,6 +49,29 @@ public class HazardGenerator : MonoBehaviour
             lastSpawnTime = timer;
             SpawnRandomHazard();
         }
+
+        if (canLeak)
+        {
+            if (MaybeLeak())
+            {
+                canLeak = false;
+
+                // Just put this here to only update this occasionally.
+                estimatedFPS = 1f / Time.unscaledDeltaTime;
+            }
+        }
+        else
+        {
+            leakCountDown -= Time.deltaTime;
+            if (leakCountDown <= 0)
+            {
+                canLeak = true;
+                leakCountDown = mMinLeakInterval;
+
+                // Just put this here to only update this occasionally.
+                estimatedFPS = 1f / Time.unscaledDeltaTime;
+            }
+        }
     }
 
     void SpawnRandomHazard()
@@ -48,7 +81,7 @@ public class HazardGenerator : MonoBehaviour
         float shipSpeed = Mathf.Sqrt(mShip.velocity.x * mShip.velocity.x + mShip.velocity.z* mShip.velocity.z);
         if (shipSpeed < 1) return;
 
-        bool isEnemy = Random.value >= 0.5f;
+        bool isEnemy = Random.value >= 0.6f;
 
         float offsetM;
         float scale;
@@ -95,6 +128,20 @@ public class HazardGenerator : MonoBehaviour
         Quaternion objectRotation = Quaternion.Euler(0f,0f,0f);
         mLastObject = Instantiate(objectToSpawn, objectPosition, objectRotation);
         mLastObject.transform.localScale *= scale;
+    }
+
+    bool MaybeLeak()
+    {
+        float p = 1f / estimatedFPS / mLeakTimeModifier;
+        float r = Random.value;
+
+        if (r <= p)
+        {
+            shipDamageEffect.Leak();    
+            return true;
+        }
+
+        return false;
     }
 
     GameObject GetGameObject(bool isEnemy)

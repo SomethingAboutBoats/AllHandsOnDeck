@@ -7,7 +7,8 @@ public enum DamageType
 {
     Other,
     Projectile,
-    Collision
+    Collision,
+    Leak
 }
 
 public abstract class DamageApplier : MonoBehaviour
@@ -22,27 +23,41 @@ public abstract class DamageApplier : MonoBehaviour
     }
 }
 
+class LeakDamage : DamageApplier
+{
+    void Start()
+    {
+        _damageType = DamageType.Leak;
+        Damage = 5;
+    }
+}
+
 [RequireComponent(typeof(ShipDriver))]
 public class DamageEffect : MonoBehaviour
 {
     public int MaxHealth = 100;
+    public int MaxLeaks = 6;
     public GameObject DecalProjector;
 
     public AudioSource BoatDamageAudioSource;
     public List<AudioClip> BoatDamageAudioClips;
+    public AudioClip BoatLeakAudioClip;
 
     protected int _currentHealth;
     protected List<GameObject> _damageDecals = new();
 
     protected ShipDriver mShipDriver;
 
+    private int mLeakCount = 0;
     private float mMinDamageY = 0.1f;
+    private LeakDamage mLeakDamage;
 
     // Start is called before the first frame update
     void Start()
     {
         _currentHealth = MaxHealth;
         mShipDriver = GetComponentInChildren<ShipDriver>();
+        mLeakDamage = this.AddComponent<LeakDamage>();
     }
 
     public bool IsSunk()
@@ -80,18 +95,34 @@ public class DamageEffect : MonoBehaviour
         ApplyRepair(damage);
     }
 
-    protected void ApplyDamage(DamageApplier damage, ContactPoint contactPoint)
-    {
-        this._currentHealth -= damage.Damage;
+    public int LeakCount => mLeakCount;
 
+    public void Leak()
+    {
+        mLeakCount += 1;
+        ApplyDamage(mLeakDamage, null);
+        BoatDamageAudioSource.PlayOneShot(BoatLeakAudioClip);
+    }
+
+    protected void ApplyDamage(DamageApplier damage, ContactPoint? contactPoint)
+    {
         switch (damage.DamageType)
         {
             case DamageType.Projectile:
-                DrawDecal(contactPoint);
+                this._currentHealth -= damage.Damage;
+                if (contactPoint != null)
+                {
+                    DrawDecal(contactPoint.Value);
+                }
+                break;
+            case DamageType.Leak:
+                this._currentHealth -= (damage.Damage + 
+                    Mathf.RoundToInt(((float)mLeakCount / (float)MaxLeaks) * damage.Damage * 3));
                 break;
             case DamageType.Other:
             case DamageType.Collision:
             default:
+                this._currentHealth -= damage.Damage;
                 break;
         }
 
@@ -106,14 +137,19 @@ public class DamageEffect : MonoBehaviour
 
     protected void ApplyRepair(DamageApplier damage)
     {
-        try
+        if (damage.DamageType != DamageType.Leak)
         {
             this._currentHealth = System.Math.Min(this._currentHealth + damage.Damage, this.MaxHealth);
             Debug.Log($"Current health: {this._currentHealth}");
-        } catch
-        {
-            Debug.Log("huuuh??");
         }
+        else if (mLeakCount > 0)
+        {
+            this._currentHealth = System.Math.Min(this._currentHealth + (damage.Damage * mLeakCount), this.MaxHealth);
+
+            mLeakCount -= 1;
+            Debug.Log($"Current health: {this._currentHealth}");
+        }
+
     }
 
     protected void DrawDecal(ContactPoint contactPoint)

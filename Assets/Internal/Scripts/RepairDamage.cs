@@ -73,8 +73,7 @@ public class RepairDamage : IPercentCompletion
                 }
                 StopInteracting(true);
             }
-
-            if (!_sourceMover.IsActivating())
+            else if (!_sourceMover.IsActivating())
             {
                 Debug.Log("Player released the interact button.");
                 StopInteracting(false);
