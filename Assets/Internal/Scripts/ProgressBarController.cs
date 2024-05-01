@@ -8,16 +8,16 @@ using UnityEngine;
 
 public class ProgressBarController : MonoBehaviour
 {
-    public GameObject boat; // Sailboat icon; set in Unity
+    public GameObject boat; // Player boat object; set in Unity
     public GameObject endingWaypoint; // Final waypoint of boat's path; set in Unity
-    private float totalDistance; // Total distance from boat's starting position to final waypoint
-    private float currentDistance; // Current distance from boat's position to final waypoint
+    protected float totalDistance; // Total distance from boat's starting position to final waypoint
+    protected float currentDistance; // Current distance from boat's position to final waypoint
 
-    private bool isFinished = false; // True if the boat has reached the final waypoint
+    protected bool isFinished = false; // True if the boat has reached the final waypoint
 
-    private float progressBarMinX = -40.0f; // Min X value of progress bar
-    private float progressBarMaxX = 40.0f; // Max X value of progress bar
-    private float currentX; // Current X value of progress bar
+    protected float progressBarMinX = -40.0f; // Min X value of progress bar
+    protected float progressBarMaxX = 40.0f; // Max X value of progress bar
+    protected float currentX; // Current X value of progress bar
 
     // Start is called before the first frame update
     public void Start()
@@ -34,7 +34,7 @@ public class ProgressBarController : MonoBehaviour
         Invoke("tick", 1.0f); // Call the tick function in 1 second
     }
 
-    private void tick()
+    protected void tick()
     {
         if (!isFinished) // If the boat hasn't reached the final waypoint:
         {
