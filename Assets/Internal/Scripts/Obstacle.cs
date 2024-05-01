@@ -32,14 +32,14 @@ public class Obstacle : DamageApplier
             {
                 if (collisionObject.TryGetComponent<Rigidbody>(out var rigidBody))
                 {
-                    float velocity = Mathf.Sqrt(rigidBody.velocity.x * rigidBody.velocity.x + rigidBody.velocity.z * rigidBody.velocity.z);
+/*                    float velocity = Mathf.Sqrt(rigidBody.velocity.x * rigidBody.velocity.x + rigidBody.velocity.z * rigidBody.velocity.z);
                     if (velocity > 1f)
-                    {
-                        Debug.Log($"Velocity {velocity}. Handling collision with obstacle.");
+                    {*/
+                        Debug.Log($"Handling collision with obstacle.");
                         damageEffect.OnDamage(this, collision.GetContact(0));
 
                         _canDamage = false;
-                    }
+/*                    }*/
                 }
             }
         }
