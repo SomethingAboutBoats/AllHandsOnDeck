@@ -403,7 +403,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1.078
+  m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
@@ -423,14 +423,14 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 638555482}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 12
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: -1
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: -1
@@ -445,7 +445,7 @@ GameObject:
   m_Component:
   - component: {fileID: 526952279}
   - component: {fileID: 526952280}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -733,15 +733,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 723889777}
   m_LocalRotation: {x: -0, y: -0.022722932, z: -0, w: 0.9997418}
-  m_LocalPosition: {x: 0, y: 0, z: -20.00051}
-  m_LocalScale: {x: 10.016412, y: 6.6707144, z: 19.97092}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 10.016412, y: 10.01641, z: 19.97092}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1207931551}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 130.50003, y: -62.99999}
+  m_AnchoredPosition: {x: 131.91, y: -90.01}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &723889779
@@ -800,7 +800,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -870,16 +870,16 @@ RectTransform:
   m_GameObject: {fileID: 950784728}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1587748588}
   m_Father: {fileID: 422718540}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.41015625, y: -0.30078125}
-  m_SizeDelta: {x: -0.820017, y: -0.6}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -364.3, y: 52.68}
+  m_SizeDelta: {x: 1039, y: 535}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &950784730
 MonoBehaviour:
@@ -1252,7 +1252,7 @@ GameObject:
   - component: {fileID: 1207931554}
   - component: {fileID: 1207931553}
   - component: {fileID: 1207931552}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1267,8 +1267,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1207931550}
   m_LocalRotation: {x: -0, y: 0.022722932, z: -0, w: 0.9997418}
-  m_LocalPosition: {x: 0, y: 0, z: -473.1}
-  m_LocalScale: {x: 0.09993931, y: 0.14990899, z: 0.049969655}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 723889778}
@@ -1276,7 +1276,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6.6999955, y: -9.650275}
+  m_AnchoredPosition: {x: 130, y: -153.83}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1207931552
@@ -1383,7 +1383,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1587748588}
   - component: {fileID: 1587748589}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: GoodPirate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1399,7 +1399,7 @@ Transform:
   m_GameObject: {fileID: 1587748587}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3, y: 0.9, z: -496.24}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1467,7 +1467,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1750129608}
   - component: {fileID: 1750129609}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PirateChatBoard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1483,8 +1483,8 @@ Transform:
   m_GameObject: {fileID: 1750129607}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.8, y: 0.1, z: -474.7}
-  m_LocalScale: {x: 4.9969664, y: 4.9969664, z: 4.9969664}
+  m_LocalPosition: {x: 130, y: 0, z: 0}
+  m_LocalScale: {x: 80, y: 80, z: 80}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1204058724}
