@@ -15,6 +15,7 @@ public class TestController : MonoBehaviour
 {
     public float mPlayerSpeed = 5f;
     public float mGamepadRotateSmoothing = 1000f;
+
     [SerializeField] private float mControllerDeadzone = 0.1f;
     [SerializeField] private float mGravityValue = -9.8f;
 
@@ -28,12 +29,14 @@ public class TestController : MonoBehaviour
     private bool mDeactivated;
     private bool mIsGamepad = false;
     private bool _canMove = true;
+    private bool _playingFootsteps = false;
 
     private Vector3 mParentPreviousPos;
     private float mRelitiveYaw = 0f;
     private Vector3 mLocalPos = new(0f,0f,0f);
 
     private Animator mAnimator;
+    private AudioSource mWalkingAudioSource;
 
     void Awake()
     {
@@ -46,6 +49,7 @@ public class TestController : MonoBehaviour
     void Start()
     {
         mAnimator = GetComponent<Animator>();
+        mWalkingAudioSource = GetComponent<AudioSource>();
 
         mParentPreviousPos = this.transform.parent.transform.position;
         mLocalPos = this.transform.localPosition;
@@ -201,10 +205,26 @@ public class TestController : MonoBehaviour
                 {
                     mAnimator.SetTrigger("WalkBack");
                 }
+
+                if (!_playingFootsteps)
+                {
+                    _playingFootsteps = true;
+                   
+                    // Start footstep audio clip.
+                    mWalkingAudioSource.Play();
+                }
             }
             else
             {
                 mAnimator.SetTrigger("Stop");
+
+                if (_playingFootsteps)
+                {
+                    _playingFootsteps = false;
+
+                    // Stop footstep audio clip.
+                    mWalkingAudioSource.Stop();
+                }
             }
         }
     }
