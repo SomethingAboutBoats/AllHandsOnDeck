@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class MastRotation : MonoBehaviour, IInteractable
+public class MastRotation : IInteractable
 {
-    private bool _isInteracting = false;
     private TestController _sourceMover;
+    private Interactor _interactor;
 
     private float mMinSailAngle = -90f;
     private float mMaxSailAngle = 90f;
@@ -14,12 +14,6 @@ public class MastRotation : MonoBehaviour, IInteractable
 
     private bool mNotStarted = true;
     public ShipDriver mShip;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -31,6 +25,7 @@ public class MastRotation : MonoBehaviour, IInteractable
                 Debug.Log("Releasing Player Control of the Sail.");
 
                 _isInteracting = false;
+                _interactor.OnInteractComplete(this);
                 _sourceMover.CanMove(true);
                 return;
             }
@@ -51,7 +46,7 @@ public class MastRotation : MonoBehaviour, IInteractable
         }
     }
 
-    public void OnInteract(Interactor interactor)
+    public override void OnInteract(Interactor interactor)
     {
         if (!_isInteracting)
         {
@@ -62,6 +57,7 @@ public class MastRotation : MonoBehaviour, IInteractable
                     Debug.Log("Giving Player Control of the Sail.");
 
                     _isInteracting = true;
+                    _interactor = interactor;
                     _sourceMover.CanMove(false);
                 }
             }

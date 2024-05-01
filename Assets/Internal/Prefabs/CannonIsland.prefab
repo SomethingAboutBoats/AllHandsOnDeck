@@ -507,18 +507,34 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3695503508226516923}
+    - targetCorrespondingSourceObject: {fileID: 6445861509532523236, guid: a9b4030b71d90474d80a59d6f29c3d8e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4168161582505679060}
     - targetCorrespondingSourceObject: {fileID: 3496265975526395384, guid: a9b4030b71d90474d80a59d6f29c3d8e,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1534846482116848721}
+    - targetCorrespondingSourceObject: {fileID: 3496265975526395384, guid: a9b4030b71d90474d80a59d6f29c3d8e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4345452209242248850}
     - targetCorrespondingSourceObject: {fileID: 2273680565632910146, guid: a9b4030b71d90474d80a59d6f29c3d8e,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4097296411688571983}
+    - targetCorrespondingSourceObject: {fileID: 2273680565632910146, guid: a9b4030b71d90474d80a59d6f29c3d8e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 582212072698417704}
     - targetCorrespondingSourceObject: {fileID: 8503484520525231523, guid: a9b4030b71d90474d80a59d6f29c3d8e,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1507739254566570250}
+    - targetCorrespondingSourceObject: {fileID: 8503484520525231523, guid: a9b4030b71d90474d80a59d6f29c3d8e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8014492644944177893}
   m_SourcePrefab: {fileID: 100100000, guid: a9b4030b71d90474d80a59d6f29c3d8e, type: 3}
 --- !u!4 &1158035067475789353 stripped
 Transform:
@@ -554,6 +570,20 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1619851943509190874, guid: ec1fdaabbc0025c4b9b929094a3bee24, type: 3}
+--- !u!114 &4168161582505679060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970881665406819475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 660083f8dffaa094b8cb4c99bf664143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 10
+  CooldownTime: 10
 --- !u!1 &3760440356581913556 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8503484520525231523, guid: a9b4030b71d90474d80a59d6f29c3d8e,
@@ -582,6 +612,20 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1122284268924234397, guid: ec1fdaabbc0025c4b9b929094a3bee24, type: 3}
+--- !u!114 &8014492644944177893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3760440356581913556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 660083f8dffaa094b8cb4c99bf664143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 10
+  CooldownTime: 10
 --- !u!1 &6746404229535597877 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2273680565632910146, guid: a9b4030b71d90474d80a59d6f29c3d8e,
@@ -610,6 +654,20 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5648318650180866189, guid: ec1fdaabbc0025c4b9b929094a3bee24, type: 3}
+--- !u!114 &582212072698417704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6746404229535597877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 660083f8dffaa094b8cb4c99bf664143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 10
+  CooldownTime: 10
 --- !u!1 &8262009560699685775 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3496265975526395384, guid: a9b4030b71d90474d80a59d6f29c3d8e,
@@ -638,3 +696,17 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5042728549856472841, guid: ec1fdaabbc0025c4b9b929094a3bee24, type: 3}
+--- !u!114 &4345452209242248850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8262009560699685775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 660083f8dffaa094b8cb4c99bf664143, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damage: 10
+  CooldownTime: 10

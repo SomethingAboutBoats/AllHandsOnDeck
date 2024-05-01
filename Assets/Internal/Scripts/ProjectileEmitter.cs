@@ -13,8 +13,14 @@ public class ProjectileEmitter : MonoBehaviour
     public AudioSource CannonAudioSource;
     public List<AudioClip> CannonAudioClips;
 
-    protected float _fireCountdown = 0.0f;
-    protected bool _canFire = true;
+    protected float _fireCountdown;
+    protected bool _canFire;
+
+    public void Start()
+    {
+        _fireCountdown = FireInterval;
+        _canFire = true;
+    }
 
     public void Fire()
     {
@@ -40,11 +46,11 @@ public class ProjectileEmitter : MonoBehaviour
         Fire();
     }
 
-    public void Update()
+    public void FixedUpdate()
     {
         if (!_canFire)
         {
-            _fireCountdown -= Time.deltaTime;
+            _fireCountdown -= Time.fixedDeltaTime;
 
             if (_fireCountdown <= 0.0f)
             {
