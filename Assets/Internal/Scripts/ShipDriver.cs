@@ -1,18 +1,30 @@
 using UnityEngine;
 using Unity.Mathematics;
+using UnityEngine.SceneManagement;
 
 public class ShipDriver : MonoBehaviour
 {
     public float mMaxSpeedPerSail = 0;
     public float mAccelRate = 10f;
 
-    SailWind[] mSails;
+    private SailWind[] mSails;
     // public Rigidbody mShipBody = null;
-    Rigidbody mShipBody = null;
+    private Rigidbody mShipBody = null;
+
+    private bool mCanSail = false;
+    private bool mIsSinking = false;
+    private float mSinkDegrees = 0;
+    public float mSinkRollTime = 7; // Take denominator seconds to sink
+
+    private Camera mMainCamera;
+    private Vector3 mCameraSinkPosition;
+    private Quaternion mCameraSinkRotation;
+    private Camera mSinkCamera;
 
     // Start is called before the first frame update
     void Start()
     {
+        mMainCamera = Camera.main;
         mSails = GetComponentsInChildren<SailWind>();
         mShipBody = this.GetComponent<Rigidbody>();
     }
@@ -20,6 +32,37 @@ public class ShipDriver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (mIsSinking)
+        {
+            if (mSinkDegrees >= 180)
+            {
+                Destroy(this.transform.root.gameObject);
+                if (SceneInterface.Instance != null)
+                {
+                    SceneInterface.Instance.GameState = GameStates.SUNK;
+                    SceneManager.LoadScene(sceneName:"0_IslandMenu");
+                }
+            }
+            else
+            {
+                if (mMainCamera != null)
+                {
+                    mMainCamera.transform.SetPositionAndRotation(mCameraSinkPosition, mCameraSinkRotation);
+                }
+                mSinkDegrees += (180/mSinkRollTime) * Time.deltaTime;
+                Vector3 currentRotations = this.transform.rotation.eulerAngles;
+                this.transform.rotation = Quaternion.Euler(currentRotations.x, currentRotations.y, currentRotations.z + mSinkDegrees);
+            }
+        }
+
+        if (!mCanSail)
+        {
+            mShipBody.velocity = new(0f, 0f, 0f);
+            mShipBody.angularVelocity = new(0f, 0f, 0f);
+            return;
+        }
+
         float absBoatYaw = GetAbsYaw(this.transform);
         float absWindAngle = GetAbsWindAngle(absBoatYaw);
 
@@ -120,6 +163,42 @@ public class ShipDriver : MonoBehaviour
         else
         {
             return 0f;
+        }
+    }
+
+    public bool IsSailing()
+    {
+        return mCanSail;
+    }
+
+    public void EnableSailing()
+    {
+        this.mCanSail = true;
+    }
+
+    public void FinishSailing(bool sunk)
+    {
+        this.mCanSail = false;
+
+        if (sunk)
+        {
+            mIsSinking = true;
+            if (mMainCamera != null)
+            {
+                mSinkCamera = Instantiate(mMainCamera);
+                mSinkCamera.transform.position = mMainCamera.transform.position;
+                mSinkCamera.transform.rotation = mMainCamera.transform.rotation;
+                mMainCamera.enabled = false;
+                mSinkCamera.enabled = true;
+            }
+        }
+        else
+        {
+            if (SceneInterface.Instance != null)
+            {
+                SceneInterface.Instance.GameState = GameStates.SURVIVED;
+                SceneManager.LoadScene(sceneName:"0_IslandMenu");
+            }
         }
     }
 
