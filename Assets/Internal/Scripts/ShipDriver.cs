@@ -134,7 +134,7 @@ public class ShipDriver : MonoBehaviour
     private float GetForceRatio(IWindBehavior sail, float absBoatAngle, float absWindAngle)
     {
         // Shift sail angle 180, so that 0 is pointed straight back
-        float relativeSailYaw = GetAbsYaw(sail.GetTransform) - 180;
+        float relativeSailYaw = NormalizeAngle(GetAbsYaw(sail.GetTransform) + 180) - 180;
         float sailAngle = NormalizeAngle(relativeSailYaw - absBoatAngle);
 
         if (math.abs(sailAngle) > 100 ) { return 0f; }
@@ -214,7 +214,7 @@ public class ShipDriver : MonoBehaviour
         if (mSails.Length > 0)
         {
             float absBoatYaw = GetAbsYaw(this.transform);
-            float relativeSailYaw = GetAbsYaw(mSails[0].GetTransform) - 180;
+            float relativeSailYaw = NormalizeAngle(GetAbsYaw(mSails[0].GetTransform) + 180) - 180;
             return NormalizeAngle(relativeSailYaw - absBoatYaw);
         }
         else
